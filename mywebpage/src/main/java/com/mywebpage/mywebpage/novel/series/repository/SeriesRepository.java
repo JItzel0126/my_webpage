@@ -8,6 +8,8 @@ import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.query.Param;
 import org.springframework.stereotype.Repository;
 
+import java.util.List;
+
 @Repository
 public interface SeriesRepository extends JpaRepository<Series, Long> {
 
@@ -17,4 +19,7 @@ public interface SeriesRepository extends JpaRepository<Series, Long> {
                     "or LOWER(s.publisher) like LOWER(concat('%',':keyword','%'))")
     Page<Series> searchAll(@Param("keyword") String keyword,
                                       Pageable pageable);
+
+    Page<Series> findByOrderByIdDesc(Pageable pageable);
+
 }
