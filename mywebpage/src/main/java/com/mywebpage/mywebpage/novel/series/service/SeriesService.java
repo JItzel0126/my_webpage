@@ -28,12 +28,20 @@ public class SeriesService {
         return page.map(series -> mapStruct.toDto(series));
     }
 
-//  전체조회(list)
+//  전체조회(list) - 최신순
     public List<SeriesDto> findRecentSeries(int size) {
         Pageable pageable = PageRequest.of(0, size);
         Page<Series> page = seriesRepository.findByOrderByIdDesc(pageable);
                 return page.getContent().stream()
                         .map(toDto->mapStruct.toDto(toDto)).toList();
+    }
+
+//  전체조회(장르 최신순)
+    public List<SeriesDto> findRecentSeriesByGenre(String genre,int size) {
+        Pageable pageable = PageRequest.of(0, size);
+        Page<Series> page = seriesRepository.findByGenreOrderByIdDesc(genre, pageable);
+        return page.map(series -> mapStruct.toDto(series)).toList();
+
     }
 
 //  상세조회

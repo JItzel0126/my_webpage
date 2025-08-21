@@ -13,7 +13,9 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 @Log4j2
 @Controller
@@ -36,10 +38,25 @@ public class SeriesController {
 //    전체조회(list-main)
     @GetMapping("/")
     public String findAllSeries(Model model) {
-        List<SeriesDto> dtos = seriesService.findRecentSeries(10);
-        model.addAttribute("series", dtos);
+        List<SeriesDto> allSeries = seriesService.findRecentSeries(10);
+        List<SeriesDto> fantasySeries = seriesService.findRecentSeriesByGenre("판타지", 10);
+        List<SeriesDto> romanceSeries = seriesService.findRecentSeriesByGenre("로맨스", 10);
+        model.addAttribute("all", allSeries);
+        model.addAttribute("fantasy", fantasySeries);
+        model.addAttribute("romance", romanceSeries);
         return "home";
     }
+
+//    Map 사용
+//    @GetMapping("/")
+//        public String findGenreSeries(Model model) {
+//        Map<String, List<SeriesDto>> genreMap = new HashMap<>();
+//        genreMap.put("fantasy", seriesService.findRecentSeriesByGenre("판타지", 10));
+//        genreMap.put("romance", seriesService.findRecentSeriesByGenre("로맨스",10));
+//        model.addAttribute("genreMap", genreMap);
+//        return "home";
+//    }
+
 
 
 }

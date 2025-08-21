@@ -2,6 +2,8 @@ package com.mywebpage.mywebpage.novel.series.dto;
 
 import lombok.*;
 
+import java.time.LocalDateTime;
+
 @Getter
 @Setter
 @ToString
@@ -17,4 +19,8 @@ public class SeriesDto {
     private String description;
     private String fileName;
     private String fileUrl;
+    private String genre;
+    private LocalDateTime createdAt;
+    private LocalDateTime updatedAt;
+    private LocalDateTime lastEpisodeUpdatedAt;
 }

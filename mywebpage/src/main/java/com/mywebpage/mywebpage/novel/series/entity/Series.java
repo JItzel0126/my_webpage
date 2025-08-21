@@ -7,6 +7,8 @@ import com.mywebpage.mywebpage.common.BaseTimeEntity;
 import jakarta.persistence.*;
 import lombok.*;
 
+import java.time.LocalDateTime;
+
 
 @Getter
 @Setter
@@ -36,5 +38,9 @@ public class Series extends BaseTimeEntity {
 //    서버 접근 url
     @Column(length = 500)
     private String fileUrl;
+    @Column(length = 20)
+    private String genre;
+    // 에피소드가 추가되거나 수정될 때 갱신되는 필드
+    private LocalDateTime lastEpisodeUpdatedAt;
 
 }

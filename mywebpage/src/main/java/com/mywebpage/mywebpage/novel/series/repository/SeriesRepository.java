@@ -16,10 +16,13 @@ public interface SeriesRepository extends JpaRepository<Series, Long> {
     @Query(value = "select s from Series s\n" +
                     "where LOWER(s.title) like LOWER(concat('%',':keyword','%'))\n"+
                     "or LOWER(s.author) like LOWER(concat('%',':keyword','%'))\n"+
-                    "or LOWER(s.publisher) like LOWER(concat('%',':keyword','%'))")
+                    "or LOWER(s.publisher) like LOWER(concat('%',':keyword','%'))"+
+                    "or LOWER(s.genre) like LOWER(concat('%',':keyword','%'))")
     Page<Series> searchAll(@Param("keyword") String keyword,
                                       Pageable pageable);
 
     Page<Series> findByOrderByIdDesc(Pageable pageable);
+
+    Page<Series> findByGenreOrderByIdDesc(String genre, Pageable pageable);
 
 }
