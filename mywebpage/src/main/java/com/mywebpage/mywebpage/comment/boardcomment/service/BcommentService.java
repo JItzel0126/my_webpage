@@ -19,6 +19,7 @@ import java.util.stream.Collectors;
 @RequiredArgsConstructor
 @Service
 public class BcommentService {
+    private final BoardRepository boardRepository;
     private final BcommentRepository bcommentRepository;
     private final MapStruct mapStruct;
     private final ErrorMsg errorMsg;
@@ -34,9 +35,33 @@ public class BcommentService {
                 }).toList();
     }
 
+//    댓글 쓰기
+    public void saveBcomment(BcommentDto bcommentDto, Long bno) {
+        Bcomment bcomment = mapStruct.toEntity(bcommentDto);
+        bcomment.setBoard(boardRepository.findById(bno)
+                .orElseThrow(()->new RuntimeException(errorMsg.getMessage("errors.not.found"))));
+        bcommentRepository.save(bcomment);
+    }
+
 //    대댓글 불러오기
     public List<BcommentDto> getReplis(Long parentBcno) {
         return bcommentRepository.findByParentBcnoOrderByCreatedAtDesc(parentBcno)
                 .stream().map(mapStruct::toDto).toList();
     }
+
+//    대댓글 쓰기
+    public void saveReplis(BcommentDto bcommentDto, Long parentBcno) {
+        Bcomment reply = mapStruct.toEntity(bcommentDto);
+        Bcomment parent = bcommentRepository.findById(parentBcno)
+                .orElseThrow(()->new RuntimeException(errorMsg.getMessage("errors.not.found")));
+        reply.setParent(parent);
+        reply.setBoard(parent.getBoard());  // 같은 게시판 연결
+        bcommentRepository.save(reply);
+    }
+
+//    삭제
+    public void deleteReplis(Long parentBcno) {
+        bcommentRepository.deleteById(parentBcno);
+    }
+
 }
