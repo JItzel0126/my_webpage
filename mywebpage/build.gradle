@@ -36,14 +36,19 @@ dependencies {
 	testImplementation 'org.springframework.boot:spring-boot-starter-test'
 	testRuntimeOnly 'org.junit.platform:junit-platform-launcher'
 
+//	TODO: 타임리프
+	implementation 'org.springframework.boot:spring-boot-starter-thymeleaf'
+	implementation 'org.springframework.boot:spring-boot-starter-web'
+	implementation 'nz.net.ultraq.thymeleaf:thymeleaf-layout-dialect'
+
 	//	TODO : 여기 추가 :  junit 테스트 시 lombok 추가
 	testAnnotationProcessor 'org.projectlombok:lombok'
 	testImplementation 'org.projectlombok:lombok'
 
 //	TODO: jsp 설정: spring boot 에는 제공하지 않음, 수작업으로 설정
-	implementation 'org.apache.tomcat.embed:tomcat-embed-jasper'
-	implementation 'jakarta.servlet.jsp.jstl:jakarta.servlet.jsp.jstl-api:3.0.0'
-	implementation 'org.glassfish.web:jakarta.servlet.jsp.jstl:3.0.1'
+//	implementation 'org.apache.tomcat.embed:tomcat-embed-jasper'
+//	implementation 'jakarta.servlet.jsp.jstl:jakarta.servlet.jsp.jstl-api:3.0.0'
+//	implementation 'org.glassfish.web:jakarta.servlet.jsp.jstl:3.0.1'
 
 //	TODO: dto , entity 변환 라이브러리(롬북보다 순서상 밑에 위치해야 정상작동함)
 	implementation 'org.mapstruct:mapstruct:1.5.5.Final'

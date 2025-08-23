@@ -1,0 +1,131 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      layout:decorate="~{common/layout}">
+
+<!-- 페이지 전용 head 추가 -->
+<th:block layout:fragment="pageHead">
+    <title>게시판 | Papaya Novel</title>
+<!-- 부트스트랩 -->
+<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/css/bootstrap.min.css"
+      rel="stylesheet"
+      integrity="sha384-rbsA2VBKQhggwzxH7pPCaAqO46MgnOM80zW1RWuH61DGLwZJEdK2Kadq2F9CUG65"
+      crossorigin="anonymous">
+</th:block>
+
+
+<div layout:fragment="content">
+    <div class="flex flex-col justify-center px-2 mx-auto
+                w-full sm:w-11/12">
+        <form action="/boards" id="listForm" name="listForm" method="get">
+            <!-- 검색창 -->
+            <div class="input-group my-3">
+                <input type="text" class="form-control" th:value="${keyword}" name="keyword" aria-label="Text input with dropdown button"
+                placeholder="제목 / 작성자 / 내용을 검색하세요">
+                <button class="btn btn-outline-secondary dropdown-toggle"
+                type="button"
+                data-bs-toggle="dropdown"
+                aria-expanded="false"
+                        th:text="${option == 'oldest' ? 'oldest' :
+                                   option == 'like' ? 'like' :
+                                   option == 'view' ? 'view' : 'latest'}"></button>
+                <ul class="dropdown-menu dropdown-menu-end">
+                    <li><a class="dropdown-item" th:href="@{/boards(keyword=${keyword}, option='oldest')}">oldest</a></li>
+                    <li><a class="dropdown-item" th:href="@{/boards(keyword=${keyword}, option='like')}">like</a></li>
+                    <li><a class="dropdown-item" th:href="@{/boards(keyword=${keyword}, option='view')}">view</a></li>
+                    <li><a class="dropdown-item" th:href="@{/boards(keyword=${keyword}, option='latest')}">latest</a></li>
+                </ul>
+            </div>
+
+
+            <div class="board">
+                <table class="table">
+                    <thead>
+                        <tr>
+                            <th scope="col" class="text-center">#</th>
+                            <th scope="col" class="text-center">Title</th>
+                            <th scope="col" class="text-center">작성자</th>
+                            <th scope="col" class="text-center">조회수</th>
+                            <th scope="col" class="text-center">작성일</th>
+                            <th scope="col" class="text-center">좋아요</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr th:each="b : ${boards}">
+                            <th scope="row"
+                                class="text-center"
+                                th:text="${b.bno}"></th>
+                            <td>
+                                <span th:text="${b.title}"></span>
+                                <div class="badge ml-2"
+                                     th:classappend="${b.commentCount > 0} ? 'bg-amber-600' : 'bg-gray-200'"
+                                >댓글 <span th:text="${b.commentCount}"></span> </div>
+                            </td>
+                            <td class="text-center" th:text="${b.writer}"></td>
+                            <td class="text-center" th:text="${b.viewCount}"></td>
+                            <td class="text-center" th:text="${#temporals.format(b.createdAt,'yyyy-MM-dd')}"></td>
+                            <td class="text-center">
+                                <div class="flex justify-center">
+                                    <!-- 뱃지 -->
+                                    <span th:text="${b.likeCount}"
+                                          class="flex items-center justify-center
+                                                w-5 h-5 text-xs font-bold text-white
+                                                rounded-full"
+                                          th:classappend="${b.likeCount > 0} ? 'bg-yellow-400' : 'bg-gray-200'"></span>
+                                </div>
+                            </td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+            <nav>
+                <ul class="pagination justify-content-center gap-1 ">
+                    <!-- 처음 -->
+                    <li th:classappend="${page.first} ? 'disabled'">
+                        <a class="page-link
+                                  rounded-l-lg border border-gray-300 text-slate-400 hover:text-black hover:font-bold hover:bg-gray-100"
+                           th:href="@{/boards(keyword=${keyword}, option=${option}, page=${page.first})}">처음</a>
+                    </li>
+                    <!-- 이전 -->
+                    <li th:classappend="${page.first} ? 'disabled'">
+                        <a class="page-link border border-gray-300 text-slate-400 hover:text-black hover:font-bold hover:bg-gray-100"
+                           th:href="@{/boards(keyword=${keyword}, option=${option}, page=${page.number-1})}">이전</a>
+                    </li>
+
+                    <!-- 페이지 번호 -->
+                    <li th:each="i : ${#numbers.sequence(0, page.totalPages-1)}"
+                        th:classappend="${page.number == i} ? 'active'">
+                        <a class="page-link border border-gray-300 text-slate-400 hover:font-bold hover:text-black"
+                           th:text="${i+1}"
+                           th:href="@{/boards(keyword=${keyword}, option=${option}, page=${i})}">
+                        </a>
+                    </li>
+
+                    <!-- 다음 -->
+                    <li th:classappend="${page.last} ? 'disabled'">
+                        <a class="page-link border border-gray-300 text-slate-400 hover:text-black hover:font-bold hover:bg-gray-100"
+                           th:href="@{/boards(keyword=${keyword}, option=${option}, page=${page.number+1})}">다음</a>
+                    </li>
+                    <!-- 끝 -->
+                    <li th:classappend="${page.last} ? 'disabled'">
+                        <a class="page-link rounded-r-lg border border-gray-300 text-slate-400 hover:text-black hover:font-bold hover:bg-gray-100"
+                           th:href="@{/boards(keyword=${keyword}, option=${option}, page=${page.totalPages-1})}">끝</a>
+                    </li>
+
+                </ul>
+            </nav>
+        </form>
+    </div>
+</div>
+
+<!-- boards.html -->
+<th:block layout:fragment="extraScript">
+    <!-- 부트스트랩 -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/js/bootstrap.bundle.min.js"
+            integrity="sha384-kenU1KFdBIe4zVF0s0G1M5b4hcpxyD9F7jL+jjXkk+Q2h455rYXK/7HAuoJl+0I4"
+            crossorigin="anonymous"></script>
+
+</th:block>
+
+
+</html>

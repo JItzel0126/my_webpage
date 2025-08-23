@@ -30,7 +30,7 @@ public class BoardService {
     }
 
 //    게시판
-    public Page<BoardDto> getBoardList(String option, Pageable pageable) {
+    public Page<BoardDto> getBoardList(String keyword, String option, Pageable pageable) {
         if("oldest".equals(option)) {
             pageable = PageRequest.of(pageable.getPageNumber(),
                                       pageable.getPageSize(),
@@ -51,7 +51,13 @@ public class BoardService {
                                       pageable.getPageSize(),
                                       Sort.by("createdAt").descending());
         }
-        Page<Board> board=boardRepository.findAll(pageable);
+        // 검색 + 정렬 함께 처리
+        Page<Board> board;
+        if (keyword != null && !keyword.isBlank()) {
+            board = boardRepository.searchBoardList(keyword, pageable);
+        } else {
+            board = boardRepository.findAll(pageable);
+        }
         return board.map(data -> mapStruct.toDto(data));
     }
 

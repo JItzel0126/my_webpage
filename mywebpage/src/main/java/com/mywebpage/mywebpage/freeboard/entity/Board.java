@@ -27,7 +27,9 @@ public class Board extends BaseTimeEntity {
     private int viewCount=0;
     private int commentCount=0;
 
+//  TODO: referencedColumnName="name" (user table의 name 컬럼 참조)
+//        FK는 기본적으로 참조대상의 PK를 매핑하기 때문에 참조 컬럼을 지정해줘야함
     @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "user_uno", nullable = false)
+    @JoinColumn(name = "user_name", referencedColumnName="name", nullable = false)
     private User writer;
 }

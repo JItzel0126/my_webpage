@@ -1,21 +1,14 @@
 package com.mywebpage.mywebpage.novel.series.controller;
 
 import com.mywebpage.mywebpage.novel.series.dto.SeriesDto;
-import com.mywebpage.mywebpage.novel.series.entity.Series;
 import com.mywebpage.mywebpage.novel.series.service.SeriesService;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.log4j.Log4j2;
-import org.springframework.data.domain.Page;
-import org.springframework.data.domain.Pageable;
-import org.springframework.data.web.PageableDefault;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.RequestParam;
 
-import java.util.HashMap;
 import java.util.List;
-import java.util.Map;
 
 @Log4j2
 @Controller

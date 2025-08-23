@@ -47,6 +47,7 @@ public interface MapStruct {
     @Mapping(source = "writer.name", target = "writer")
     BoardDto toDto(Board board);
 //    더티체킹
+    @Mapping(source = "writer", target = "writer.name")
     void update(BoardDto boardDto, @MappingTarget Board board);
 
 //    bcomment

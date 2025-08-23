@@ -1,0 +1,141 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      layout:decorate="~{common/layout}">
+
+<!-- 페이지 전용 head 추가 -->
+<th:block layout:fragment="pageHead">
+    <title>Papaya Novel</title>
+    <!-- Swiper CSS -->
+    <link rel="stylesheet"
+          href="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.css"/>
+    <link rel="stylesheet" href="/css/cardstyle.css">
+</th:block>
+
+
+<!-- 본문 content -->
+<div layout:fragment="content">
+    <div class="flex flex-col justify-center w-full px-2 mx-auto">
+        <form id="mainList" name="mainList" method="get">
+
+            <!-- 검색창 -->
+            <div
+                    class="mx-auto flex items-center justify-between border rounded-md p-2 m-4 w-full md:w-10/12 lg:w-full">
+                <input
+                        type="text"
+                        placeholder="작품 검색"
+                        id="keyword"
+                        name="keyword"
+                        class="outline-none text-base w-full md:w-10/12 lg:w-full"
+                />
+                <button
+                        type="submit"
+                        class="border-2 w-2/12 h-1/2 py-1 rounded-lg text-slate-200 bg-indigo-900 hover:bg-indigo-950"
+                >
+                    검색
+                </button>
+            </div>
+
+            <!-- 리스트 -->
+            <section class="contents-box space-y-4">
+
+                <!-- 판타지 카테고리 -->
+                <div class="f-carousel space-y-2">
+                    <p class="text-xl font-bold text-indigo-950">🔥판타지 최신순</p>
+                    <div class="swiper cardSwiper">
+                        <div class="swiper-wrapper">
+
+                            <!-- 반복 -->
+                            <div class="swiper-slide rounded-md"
+                                 th:each="f : ${fantasy}">
+                                <div class="card">
+                                    <img th:src="@{/images/cover1.jpg}" alt="웹소설1" />
+                                    <p th:text="${f.title}"></p>
+                                    <p th:text="${f.author}"></p>
+                                </div>
+                            </div>
+
+                        </div>
+                        <div class="swiper-button-prev"></div>
+                        <div class="swiper-button-next"></div>
+                    </div>
+                </div>
+
+
+                <!-- 로맨스 카테고리 -->
+                <div class="r-carousel space-y-2">
+                    <p class="text-xl font-extrabold text-indigo-950">🔥로맨스 최신순</p>
+                    <div class="swiper cardSwiper">
+                        <div class="swiper-wrapper">
+
+                            <!-- 반복 -->
+                            <div class="swiper-slide rounded-md"
+                                 th:each="r : ${romance}">
+                                <div class="card">
+                                    <img th:src="@{/images/cover1.jpg}" alt="웹소설1" />
+                                    <p th:text="${r.title}"></p>
+                                    <p th:text="${r.author}"></p>
+                                </div>
+                            </div>
+
+                        </div>
+                        <div class="swiper-button-prev"></div>
+                        <div class="swiper-button-next"></div>
+                    </div>
+                </div>
+
+
+                <!-- 전체 카테고리 -->
+                <div class="a-carousel space-y-2">
+                    <p class="text-xl font-bold text-indigo-950">🔥시리즈 최신순</p>
+                    <div class="swiper cardSwiper">
+                        <div class="swiper-wrapper">
+
+                            <!-- 반복 -->
+                            <div class="swiper-slide rounded-md"
+                                 th:each="a : ${all}">
+                                <div class="card">
+                                    <img th:src="@{/images/cover1.jpg}" alt="웹소설1" />
+                                    <p th:text="${a.title}"></p>
+                                    <p th:text="${a.author}"></p>
+                                </div>
+                            </div>
+
+                        </div>
+                        <div class="swiper-button-prev"></div>
+                        <div class="swiper-button-next"></div>
+                    </div>
+                </div>
+            </section>
+
+        </form>
+    </div>
+</div>
+
+<th:block layout:fragment="extraScript">
+<!-- Swiper JS -->
+<script src="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.js"></script>
+<script>
+
+  const cardSwiper = new Swiper(".cardSwiper", {
+    slidesPerView: 2.2,
+    spaceBetween: 10,
+    navigation: {
+      nextEl: ".swiper-button-next",
+      prevEl: ".swiper-button-prev",
+    },
+    breakpoints: {
+      768: {
+        slidesPerView: 4,
+        spaceBetween: 20,
+      },
+      1024: {
+        slidesPerView: 5,
+        spaceBetween: 30,
+      },
+    },
+  });
+</script>
+</th:block>
+
+</html>

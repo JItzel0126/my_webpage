@@ -1,0 +1,86 @@
+/* style.css */
+
+:root {
+    --text-black: #212529;
+    --text-gray1: #6C757D;
+    --text-gray2: #ADB5BD;
+    --text-gray3: #F8F9FA;
+
+    --primary-blue1: #2E3E59;
+    --primary-blue2: #598AD9;
+    --secondary-lavender1: #BA92C8;
+    --secondary-lavender2: #8C63A4;
+
+    --basic1-light: #e9e9e9;
+    --basic2-warning: #f7c534;
+    --basic3-success: #4f9b7a;
+    --basic4-danger: #e15757;
+    --basic5-secondary: #8a8f98;
+    --basic6-dark: #343b48;
+    --basic7-green: #7BA49D;
+    --basic8-brown: #c49a6c;
+    --basic9-red: #c95d63;
+
+    --soft1-primary: #8cb6f1;
+    --soft1-secondary: #a3a8af;
+    --soft1-success: #7fbfa3;
+    --soft1-danger: #ef9a9a;
+    --soft1-warning: #ffe8a3;
+    --soft1-info: #9ddcf0;
+    --soft1-light: #f2f2f2;
+    --soft1-dark: #4e5561;
+    --soft1-link: #5c9de0;
+
+
+    --soft2-primary: #609de5;
+    --soft2-secondary: #a3a8af;
+    --soft2-success: #5f9d80;
+    --soft2-danger: #e76b6b;
+    --soft2-warning: #f9d04a;
+    --soft2-info: #6fbddc;
+    --soft2-light: #f2f2f2;
+    --soft2-dark: #3a3a47;
+    --soft2-link: #5c9de0;
+
+
+    --soft3-primary: #4f8ae0;
+    --soft3-secondary: #8a8f98;
+    --soft3-success: #4f9b7a;
+    --soft3-danger: #e15757;
+    --soft3-warning: #f7c534;
+    --soft3-info: #5cb6d4;
+    --soft3-light: #e9e9e9;
+    --soft3-dark: #343b48;
+    --soft3-link: #4d8ed1;
+
+}
+
+* {margin: 0;padding: 0;box-sizing: border-box;}
+
+.page {width:99vw; margin: 0 auto;}
+
+li {list-style-type: none;}
+
+a {text-decoration: none;}
+
+/* btn */
+[class^="btn"] {
+    padding: 0.5rem 1rem;
+    transition: all 0.2s ease-in-out;
+}
+[class^="btn"]:hover {
+    filter: brightness(0.95);
+    transform: translateY(-1px);
+    box-shadow: 0 2px 8px rgba(0,0,0,0.05);
+}
+
+
+/* TODO: 태블릿 */
+@media screen and (min-width: 768px){
+    .page {width: 90vw;}
+}
+
+/* TODO: pc */
+@media screen and (min-width: 1024px){
+    .page {width: 70vw;}
+}

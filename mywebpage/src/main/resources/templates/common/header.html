@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<th:block th:fragment="main-header">
+
+
+
+<div class="w-full bg-indigo-950 shadow-sm px-2">
+  <div class="mx-auto px-4 flex items-center justify-between h-14">
+    <!-- 로고 -->
+    <a href="/" class="text-xl font-bold text-slate-200">PapayaNovel</a>
+
+    <!-- 로그인/회원가입 -->
+    <div class="flex items-center space-x-3">
+      <a href="/login" class="text-slate-200 hover:text-slate-400">로그인</a>
+      <a href="/logout" class="text-slate-200 hover:text-slate-400">로그아웃</a>
+      <a href="/signup" class="text-slate-200 hover:text-slate-400">회원가입</a>
+    </div>
+  </div>
+      <!-- 메뉴 -->
+    <nav class="flex items-center space-x-6 px-4 pb-2">
+      <a href="/novels" class="text-slate-200 hover:text-slate-400">시리즈</a>
+      <a href="/boards" class="text-slate-200 hover:text-slate-400">게시판</a>
+    </nav>
+</div>
+
+</th:block>
+</html>

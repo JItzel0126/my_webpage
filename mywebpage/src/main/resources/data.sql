@@ -1,3 +1,59 @@
+-- users 더미 데이터 10명 (created_at, updated_at 랜덤)
+
+INSERT INTO users (uno, name, password, email, role, created_at, updated_at) VALUES(1,'user1', '1234', 'user1@example.com', 'ROLE_USER', '2025-01-03 09:15:00', '2025-01-03 09:15:00');
+INSERT INTO users (uno, name, password, email, role, created_at, updated_at) VALUES(2,'user2', '1234', 'user2@example.com', 'ROLE_USER', '2025-01-20 14:30:00', '2025-01-20 14:30:00');
+INSERT INTO users (uno, name, password, email, role, created_at, updated_at) VALUES(3,'user3', '1234', 'user3@example.com', 'ROLE_USER', '2025-02-07 11:45:00', '2025-02-07 11:45:00');
+INSERT INTO users (uno, name, password, email, role, created_at, updated_at) VALUES(4,'user4', '1234', 'user4@example.com', 'ROLE_USER', '2025-02-25 18:20:00', '2025-02-25 18:20:00');
+INSERT INTO users (uno, name, password, email, role, created_at, updated_at) VALUES(5,'user5', '1234', 'user5@example.com', 'ROLE_USER', '2025-03-12 10:05:00', '2025-03-12 10:05:00');
+INSERT INTO users (uno, name, password, email, role, created_at, updated_at) VALUES(6,'dev_jane', '1234', 'jane@example.com', 'ROLE_USER', '2025-03-28 16:50:00', '2025-03-28 16:50:00');
+INSERT INTO users (uno, name, password, email, role, created_at, updated_at) VALUES(7,'dev_john', '1234', 'john@example.com', 'ROLE_USER', '2025-04-09 08:40:00', '2025-04-09 08:40:00');
+INSERT INTO users (uno, name, password, email, role, created_at, updated_at) VALUES(8,'guest01', '1234', 'guest01@example.com', 'ROLE_USER', '2025-04-21 20:10:00', '2025-04-21 20:10:00');
+INSERT INTO users (uno, name, password, email, role, created_at, updated_at) VALUES(9,'admin', 'admin1234', 'admin@example.com', 'ROLE_ADMIN', '2025-05-05 13:25:00', '2025-05-05 13:25:00');
+INSERT INTO users (uno, name, password, email, role, created_at, updated_at) VALUES(10,'superuser', 'super1234', 'super@example.com', 'ROLE_ADMIN', '2025-06-15 17:55:00', '2025-06-15 17:55:00');
+
+
+
+INSERT INTO freeboard (bno, title, content, like_count, view_count, comment_count, user_name, created_at, updated_at)
+VALUES (1,'첫 번째 글', '안녕하세요! 테스트 글입니다.', 3, 12, 0, 'user1', '2025-01-05 10:15:00', '2025-01-05 10:15:00');
+INSERT INTO freeboard (bno, title, content, like_count, view_count, comment_count, user_name, created_at, updated_at)
+VALUES (2,'두 번째 글', '오늘 점심은 뭐 드셨어요?', 5, 20, 2, 'user2', '2025-01-12 14:30:00', '2025-01-12 14:30:00');
+INSERT INTO freeboard (bno, title, content, like_count, view_count, comment_count, user_name, created_at, updated_at)
+VALUES (3,'세 번째 글', '스프링부트 공부중인데 어렵네요 ㅠㅠ', 1, 15, 1, 'user3', '2025-01-25 09:10:00', '2025-01-25 09:10:00');
+INSERT INTO freeboard (bno, title, content, like_count, view_count, comment_count, user_name, created_at, updated_at)
+VALUES (4,'네 번째 글', 'Tailwind CSS 써보신 분?', 0, 9, 0, 'user4', '2025-02-03 11:00:00', '2025-02-03 11:00:00');
+INSERT INTO freeboard (bno, title, content, like_count, view_count, comment_count, user_name, created_at, updated_at)
+VALUES (5,'다섯 번째 글', '이 게시판은 자유롭게 쓰면 되나요?', 2, 18, 3, 'user5', '2025-02-15 16:45:00', '2025-02-15 16:45:00');
+INSERT INTO freeboard (bno, title, content, like_count, view_count, comment_count, user_name, created_at, updated_at)
+VALUES (6,'여섯 번째 글', '오늘 너무 덥네요… 얼음물 필수', 4, 25, 1, 'user1', '2025-02-28 08:20:00', '2025-02-28 08:20:00');
+INSERT INTO freeboard (bno, title, content, like_count, view_count, comment_count, user_name, created_at, updated_at)
+VALUES (7,'일곱 번째 글', '좋아하는 노래 추천해주세요!', 6, 30, 5, 'user2', '2025-03-04 12:05:00', '2025-03-04 12:05:00');
+INSERT INTO freeboard (bno, title, content, like_count, view_count, comment_count, user_name, created_at, updated_at)
+VALUES (8,'여덟 번째 글', 'H2 콘솔 들어가는 방법', 1, 11, 0, 'user3', '2025-03-10 19:40:00', '2025-03-10 19:40:00');
+INSERT INTO freeboard (bno, title, content, like_count, view_count, comment_count, user_name, created_at, updated_at)
+VALUES (9,'아홉 번째 글', '주말에 뭐 하시나요?', 7, 42, 4, 'user4', '2025-03-22 07:55:00', '2025-03-22 07:55:00');
+INSERT INTO freeboard (bno, title, content, like_count, view_count, comment_count, user_name, created_at, updated_at)
+VALUES (10,'열 번째 글', '오늘의 다짐: 코드 절대 안 미루기', 3, 21, 2, 'user5', '2025-04-01 13:30:00', '2025-04-01 13:30:00');
+INSERT INTO freeboard (bno, title, content, like_count, view_count, comment_count, user_name, created_at, updated_at)
+VALUES (11,'열한 번째 글', '카페에서 공부중… 집중 잘 안됨', 0, 7, 0, 'user1', '2025-04-09 15:15:00', '2025-04-09 15:15:00');
+INSERT INTO freeboard (bno, title, content, like_count, view_count, comment_count, user_name, created_at, updated_at)
+VALUES (12,'열두 번째 글', 'Gradle 빌드 오류났는데 왜일까요?', 2, 19, 1, 'user2', '2025-04-20 18:25:00', '2025-04-20 18:25:00');
+INSERT INTO freeboard (bno, title, content, like_count, view_count, comment_count, user_name, created_at, updated_at)
+VALUES (13,'열세 번째 글', '요즘 본 드라마 뭐 있나요?', 4, 33, 3, 'user3', '2025-04-30 09:50:00', '2025-04-30 09:50:00');
+INSERT INTO freeboard (bno, title, content, like_count, view_count, comment_count, user_name, created_at, updated_at)
+VALUES (14,'열네 번째 글', 'React로 게시판 만드는 중입니다!', 5, 40, 6, 'user4', '2025-05-08 20:05:00', '2025-05-08 20:05:00');
+INSERT INTO freeboard (bno, title, content, like_count, view_count, comment_count, user_name, created_at, updated_at)
+VALUES (15,'열다섯 번째 글', '좋은 개발 서적 추천받습니다.', 2, 16, 0, 'user5', '2025-05-14 14:00:00', '2025-05-14 14:00:00');
+INSERT INTO freeboard (bno, title, content, like_count, view_count, comment_count, user_name, created_at, updated_at)
+VALUES (16,'열여섯 번째 글', '오늘 버스에서 자리 양보했어요ㅎㅎ', 8, 50, 7, 'user1', '2025-05-25 08:45:00', '2025-05-25 08:45:00');
+INSERT INTO freeboard (bno, title, content, like_count, view_count, comment_count, user_name, created_at, updated_at)
+VALUES (17,'열일곱 번째 글', '더미데이터 만드는 것도 일이네요', 1, 12, 0, 'user2', '2025-06-02 17:30:00', '2025-06-02 17:30:00');
+INSERT INTO freeboard (bno, title, content, like_count, view_count, comment_count, user_name, created_at, updated_at)
+VALUES (18,'열여덟 번째 글', 'SQL INSERT 연습중 ㅋㅋㅋ', 0, 6, 0, 'user3', '2025-06-10 10:25:00', '2025-06-10 10:25:00');
+INSERT INTO freeboard (bno, title, content, like_count, view_count, comment_count, user_name, created_at, updated_at)
+VALUES (19,'열아홉 번째 글', '아이스크림 먹고 싶다', 9, 55, 10, 'user4', '2025-06-18 21:10:00', '2025-06-18 21:10:00');
+INSERT INTO freeboard (bno, title, content, like_count, view_count, comment_count, user_name, created_at, updated_at)
+VALUES (20,'스무 번째 글', '이제 마지막 더미 데이터!', 3, 22, 1, 'user5', '2025-06-28 11:55:00', '2025-06-28 11:55:00');
+
 -- =======================
 -- SERIES 샘플 데이터 (20개)
 -- =======================

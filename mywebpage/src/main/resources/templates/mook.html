@@ -1,0 +1,189 @@
+<!DOCTYPE html>
+<html
+  xmlns:th="http://www.thymeleaf.org"
+  xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+>
+  <head>
+    <meta charset="UTF-8" />
+    <title>mook 파일</title>
+    <link rel="stylesheet" href="/css/bootstrap.min.css" />
+    <script src="/js/jquery-3.6.0.min.js"></script>
+    <script src="/js/bootstrap.min.js"></script>
+    <!-- Tailwind -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="stylesheet" href="../static/css/output.css" />
+    <!-- css -->
+    <link rel="stylesheet" href="../static/css/style.css" />
+    <!-- Swiper CSS -->
+    <link
+      rel="stylesheet"
+      href="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.css"
+    />
+    <link rel="stylesheet" href="../static/css/cardstyle.css" />
+  </head>
+  <body>
+    <div class="page">
+      <!-- 헤더 -->
+      <header>
+        <div class="w-full bg-indigo-950 shadow-sm px-2">
+          <div class="mx-auto px-4 flex items-center justify-between h-14">
+            <!-- 로고 -->
+            <a href="/" class="text-xl font-bold text-slate-200">PapayaNovel</a>
+
+            <!-- 로그인/회원가입 -->
+            <div class="flex items-center space-x-3">
+              <a href="/login" class="text-slate-200 hover:text-slate-400"
+                >로그인</a
+              >
+              <a href="/logout" class="text-slate-200 hover:text-slate-400"
+                >로그아웃</a
+              >
+              <a href="/signup" class="text-slate-200 hover:text-slate-400"
+                >회원가입</a
+              >
+            </div>
+          </div>
+          <!-- 메뉴 -->
+          <nav class="flex items-center space-x-6 px-4 pb-2">
+            <a href="/novels" class="text-slate-200 hover:text-slate-400"
+              >시리즈</a
+            >
+            <a href="/boards" class="text-slate-200 hover:text-slate-400"
+              >게시판</a
+            >
+          </nav>
+        </div>
+      </header>
+
+      <!-- home.html -->
+      <main layout:fragment="content">
+        <div layout:fragment="content">
+          <div class="flex flex-col justify-center w-full px-2 mx-auto">
+            <form id="" name="" method="get">
+              <!-- 검색창 -->
+              <div
+                class="mx-auto flex items-center justify-between border rounded-md p-2 m-4 w-full md:w-10/12 lg:w-full"
+              >
+                <input
+                  type="text"
+                  placeholder="작품 검색"
+                  class="outline-none text-base w-full md:w-10/12 lg:w-full"
+                />
+                <button
+                  type="submit"
+                  class="border-2 w-2/12 h-1/2 py-1 rounded-lg text-slate-200 bg-indigo-900 hover:bg-indigo-950"
+                >
+                  검색
+                </button>
+              </div>
+
+              <!-- 리스트 -->
+              <section class="contents-box space-y-4">
+                <!-- 판타지 카테고리 -->
+                <div class="f-carousel space-y-2">
+                  <p class="text-xl font-bold text-indigo-950">
+                    🔥판타지 최신순
+                  </p>
+                  <div class="swiper cardSwiper">
+                    <div class="swiper-wrapper">
+                      <!-- 반복 -->
+                      <div
+                        class="swiper-slide rounded-md"
+                        th:each="f : ${fantasy}"
+                      >
+                        <div class="card w-3/12">
+                          <img
+                            src="../static/images/cover1.jpg"
+                            alt="웹소설1"
+                          />
+                          <span th:text="${f.title}"></span>
+                          <span th:text="${f.author}"></span>
+                        </div>
+                      </div>
+                    </div>
+                    <div class="swiper-button-prev"></div>
+                    <div class="swiper-button-next"></div>
+                  </div>
+                </div>
+
+                <!-- 로맨스 카테고리 -->
+                <div class="r-carousel space-y-2">
+                  <p class="text-xl font-extrabold text-indigo-950">
+                    🔥로맨스 최신순
+                  </p>
+                  <div class="swiper cardSwiper">
+                    <div class="swiper-wrapper">
+                      <!-- 반복 -->
+                      <div
+                        class="swiper-slide rounded-md"
+                        th:each="r : ${romance}"
+                      >
+                        <div class="card w-3/12">
+                          <img
+                            src="../static/images/cover1.jpg"
+                            alt="웹소설1"
+                          />
+                          <span th:text="${r.title}"></span>
+                          <span th:text="${r.author}"></span>
+                        </div>
+                      </div>
+                    </div>
+                    <div class="swiper-button-prev"></div>
+                    <div class="swiper-button-next"></div>
+                  </div>
+                </div>
+
+                <!-- 전체 카테고리 -->
+                <div class="a-carousel space-y-2">
+                  <p class="text-xl font-bold text-indigo-950">
+                    🔥시리즈 최신순
+                  </p>
+                  <div class="swiper cardSwiper">
+                    <div class="swiper-wrapper">
+                      <!-- 반복 -->
+                      <div class="swiper-slide rounded-md" th:each="a : ${all}">
+                        <div class="card w-3/12">
+                          <img
+                            src="../static/images/cover1.jpg"
+                            alt="웹소설1"
+                          />
+                          <span th:text="${a.title}"></span>
+                          <span th:text="${a.author}"></span>
+                        </div>
+                      </div>
+                    </div>
+                    <div class="swiper-button-prev"></div>
+                    <div class="swiper-button-next"></div>
+                  </div>
+                </div>
+              </section>
+            </form>
+          </div>
+        </div>
+      </main>
+
+      <!-- footer.html -->
+      <div class="allfooter">
+        <div class="mt-5 space-y-2 text-indigo-950">
+            <div class="flex flex-col md:flex-row justify-between">
+          <div class="footer-links font-bold flex flex-wrap gap-5">
+            <a href="#" class="hover:text-indigo-800">이용약관</a>
+            <a href="#" class="hover:text-indigo-800">FAQ</a>
+            <a href="#" class="hover:text-indigo-800">개인정보처리방침</a>
+          </div>
+          <div class="footer-copy mr-2 text-lg font-extrabold">
+            © Papaya corp.
+          </div>
+          </div>
+          <div>
+            <div class="font-bold">대표 Itzel J 대한민국 어딘가</div>
+            <div class="font-bold">
+              전화번호 025-0422-1022 사업자등록번호 000-00-00000 통신판매번호
+              2025-부산수영-00304호
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </body>
+</html>
