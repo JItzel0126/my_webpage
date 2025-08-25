@@ -42,20 +42,20 @@
                 <table class="table">
                     <thead>
                         <tr>
-                            <th scope="col" class="text-center">#</th>
+                            <th scope="col" class="text-center hidden md:table-cell">#</th>
                             <th scope="col" class="text-center">Title</th>
                             <th scope="col" class="text-center">작성자</th>
                             <th scope="col" class="text-center">조회수</th>
-                            <th scope="col" class="text-center">작성일</th>
-                            <th scope="col" class="text-center">좋아요</th>
+                            <th scope="col" class="text-center hidden md:table-cell">작성일</th>
+                            <th scope="col" class="text-center hidden md:table-cell">좋아요</th>
                         </tr>
                     </thead>
                     <tbody>
                         <tr th:each="b : ${boards}">
                             <th scope="row"
-                                class="text-center"
+                                class="text-center hidden md:table-cell"
                                 th:text="${b.bno}"></th>
-                            <td>
+                            <td class="overflow-hidden whitespace-nowrap truncate max-w-[150px] md:max-w-none">
                                 <span th:text="${b.title}"></span>
                                 <div class="badge ml-2"
                                      th:classappend="${b.commentCount > 0} ? 'bg-amber-600' : 'bg-gray-200'"
@@ -63,8 +63,8 @@
                             </td>
                             <td class="text-center" th:text="${b.writer}"></td>
                             <td class="text-center" th:text="${b.viewCount}"></td>
-                            <td class="text-center" th:text="${#temporals.format(b.createdAt,'yyyy-MM-dd')}"></td>
-                            <td class="text-center">
+                            <td class="text-center hidden md:table-cell" th:text="${#temporals.format(b.createdAt,'yyyy-MM-dd')}"></td>
+                            <td class="text-center hidden md:table-cell">
                                 <div class="flex justify-center">
                                     <!-- 뱃지 -->
                                     <span th:text="${b.likeCount}"
@@ -78,8 +78,8 @@
                     </tbody>
                 </table>
             </div>
-            <nav>
-                <ul class="pagination justify-content-center gap-1 ">
+            <nav class="mx-auto">
+                <ul class="pagination justify-content-center md:justify-self-end gap-1">
                     <!-- 처음 -->
                     <li th:classappend="${page.first} ? 'disabled'">
                         <a class="page-link
@@ -93,7 +93,17 @@
                     </li>
 
                     <!-- 페이지 번호 -->
-                    <li th:each="i : ${#numbers.sequence(0, page.totalPages-1)}"
+                    <li th:each="i : ${
+                                (page.totalPages <= 3)
+                                    ? #numbers.sequence(0, page.totalPages - 1)
+                                    : #numbers.sequence(
+                                    (page.number == 0) ? 0
+                                    : (page.number == page.totalPages - 1) ? page.totalPages - 3
+                                    : page.number - 1,
+                                    (page.number == 0) ? 2
+                                    : (page.number == page.totalPages - 1) ? page.totalPages - 1
+                                    : page.number + 1)
+                                }"
                         th:classappend="${page.number == i} ? 'active'">
                         <a class="page-link border border-gray-300 text-slate-400 hover:font-bold hover:text-black"
                            th:text="${i+1}"
