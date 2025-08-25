@@ -19,5 +19,4 @@ public interface BoardRepository extends JpaRepository<Board, Long> {
     Page<Board> searchBoardList(@Param("keyword") String keyword,
             Pageable pageable);
 
-    Long bno(Long bno);
 }

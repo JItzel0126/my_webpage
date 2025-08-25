@@ -24,10 +24,10 @@ public class BoardService {
     private final ErrorMsg errorMsg;
 
 //    like 조회
-    public Page<BoardDto> searchBoardList(String keyword, Pageable pageable) {
-        Page<Board> boards=boardRepository.searchBoardList(keyword, pageable);
-        return boards.map(data -> mapStruct.toDto(data));
-    }
+//    public Page<BoardDto> searchBoardList(String keyword, Pageable pageable) {
+//        Page<Board> boards=boardRepository.searchBoardList(keyword, pageable);
+//        return boards.map(data -> mapStruct.toDto(data));
+//    }
 
 //    게시판
     public Page<BoardDto> getBoardList(String keyword, String option, Pageable pageable) {

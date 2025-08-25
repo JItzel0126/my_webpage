@@ -58,25 +58,45 @@
       <!-- home.html -->
       <main layout:fragment="content">
         <div layout:fragment="content">
-          <div class="flex flex-col justify-center w-full px-2 mx-auto">
+          <div class="w-full px-2 mx-auto">
             <form id="" name="" method="get">
 
-          <section class="min-h-[85vh] flex flex-col overflow-hidden border-2 border-slate-100 bg-white shadow-sm">
-            <div class="flex flex-wrap"
-                 th:each="b : ${board}">
-              <div class="rounded border px-2 py-1">번호
-                <span th:text="${b.bno}"></span></div>
-              <div class="rounded flex-1 border px-2 py-1">제목
-                <span th:text="${b.title}"></span></div>
-              <div class="rounded border px-2 py-1">작성자
-                <span th:text="${b.writer}"></span></div>
-              <div class="rounded border px-2 py-1">작성일</div>
-            </div>
+              <section class="min-h-[85vh] grid grid-rows-[auto_1fr_auto] gap-2 border-2 border-slate-100 bg-white shadow-sm">
+                <!-- row 1: 정보 -->
+                <div>
+                <div class="flex flex-row">
+                  <div class="shrink-0 rounded border px-2 py-1">번호:
+                    <span th:text="${board.bno}"></span></div>
 
-            <div class="rounded border px-2 py-1">조회수</div>
-            <div class="rounded border px-2 py-1">좋아요</div>
+                  <div class="flex-1 border px-2 py-1">제목:
+                    <span th:text="${board.title}"></span>
+                    <div class="badge ml-2"
+                         th:classappend="${board.commentCount > 0} ? 'bg-amber-600' : 'bg-gray-200'"
+                    >댓글 <span th:text="${board.commentCount}"></span> </div>
+                    <div class="badge ml-2"
+                         th:classappend="${board.likeCount > 0} ? 'bg-amber-600' : 'bg-gray-200'"
+                    >좋아요 <span th:text="${board.likeCount}"></span> </div>
+                  </div>
+                  <div class="shrink-0 rounded border px-2 py-1">작성자:
+                    <span th:text="${board.writer}"></span></div>
+                </div>
 
-          </section>
+                  <div class="flex flex-row justify-end">
+                    <div class="rounded border px-2 py-1">조회수:
+                      <span th:text="${board.viewCount}"></span></div>
+                    <div class="rounded border px-2 py-1">작성일:
+                      <span th:text="${#temporals.format(board.createdAt,'yyyy-MM-dd')}"></span></div>
+                  </div>
+                </div>
+                <div> content </div>
+                <div>
+                  <button>수정</button>
+                  <button>삭제</button>
+
+                </div>
+
+              </section>
+
 
 
 
