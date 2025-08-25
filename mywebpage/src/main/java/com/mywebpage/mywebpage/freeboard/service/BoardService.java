@@ -61,6 +61,13 @@ public class BoardService {
         return board.map(data -> mapStruct.toDto(data));
     }
 
+//    상세조회
+    public BoardDto getBoard(long bno) {
+        Board board=boardRepository.findById(bno)
+                .orElseThrow(()->new RuntimeException(errorMsg.getMessage("errors.not.found")));
+        return mapStruct.toDto(board);
+    }
+
 //    추가
     public void save(BoardDto boardDto) {
         Board board = mapStruct.toEntity(boardDto);

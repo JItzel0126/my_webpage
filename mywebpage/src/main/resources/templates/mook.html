@@ -60,103 +60,26 @@
         <div layout:fragment="content">
           <div class="flex flex-col justify-center w-full px-2 mx-auto">
             <form id="" name="" method="get">
-              <!-- 검색창 -->
-              <div
-                class="mx-auto flex items-center justify-between border rounded-md p-2 m-4 w-full md:w-10/12 lg:w-full"
-              >
-                <input
-                  type="text"
-                  placeholder="작품 검색"
-                  class="outline-none text-base w-full md:w-10/12 lg:w-full"
-                />
-                <button
-                  type="submit"
-                  class="border-2 w-2/12 h-1/2 py-1 rounded-lg text-slate-200 bg-indigo-900 hover:bg-indigo-950"
-                >
-                  검색
-                </button>
-              </div>
 
-              <!-- 리스트 -->
-              <section class="contents-box space-y-4">
-                <!-- 판타지 카테고리 -->
-                <div class="f-carousel space-y-2">
-                  <p class="text-xl font-bold text-indigo-950">
-                    🔥판타지 최신순
-                  </p>
-                  <div class="swiper cardSwiper">
-                    <div class="swiper-wrapper">
-                      <!-- 반복 -->
-                      <div
-                        class="swiper-slide rounded-md"
-                        th:each="f : ${fantasy}"
-                      >
-                        <div class="card w-3/12">
-                          <img
-                            src="../static/images/cover1.jpg"
-                            alt="웹소설1"
-                          />
-                          <span th:text="${f.title}"></span>
-                          <span th:text="${f.author}"></span>
-                        </div>
-                      </div>
-                    </div>
-                    <div class="swiper-button-prev"></div>
-                    <div class="swiper-button-next"></div>
-                  </div>
-                </div>
+          <section class="min-h-[85vh] flex flex-col overflow-hidden border-2 border-slate-100 bg-white shadow-sm">
+            <div class="flex flex-wrap"
+                 th:each="b : ${board}">
+              <div class="rounded border px-2 py-1">번호
+                <span th:text="${b.bno}"></span></div>
+              <div class="rounded flex-1 border px-2 py-1">제목
+                <span th:text="${b.title}"></span></div>
+              <div class="rounded border px-2 py-1">작성자
+                <span th:text="${b.writer}"></span></div>
+              <div class="rounded border px-2 py-1">작성일</div>
+            </div>
 
-                <!-- 로맨스 카테고리 -->
-                <div class="r-carousel space-y-2">
-                  <p class="text-xl font-extrabold text-indigo-950">
-                    🔥로맨스 최신순
-                  </p>
-                  <div class="swiper cardSwiper">
-                    <div class="swiper-wrapper">
-                      <!-- 반복 -->
-                      <div
-                        class="swiper-slide rounded-md"
-                        th:each="r : ${romance}"
-                      >
-                        <div class="card w-3/12">
-                          <img
-                            src="../static/images/cover1.jpg"
-                            alt="웹소설1"
-                          />
-                          <span th:text="${r.title}"></span>
-                          <span th:text="${r.author}"></span>
-                        </div>
-                      </div>
-                    </div>
-                    <div class="swiper-button-prev"></div>
-                    <div class="swiper-button-next"></div>
-                  </div>
-                </div>
+            <div class="rounded border px-2 py-1">조회수</div>
+            <div class="rounded border px-2 py-1">좋아요</div>
 
-                <!-- 전체 카테고리 -->
-                <div class="a-carousel space-y-2">
-                  <p class="text-xl font-bold text-indigo-950">
-                    🔥시리즈 최신순
-                  </p>
-                  <div class="swiper cardSwiper">
-                    <div class="swiper-wrapper">
-                      <!-- 반복 -->
-                      <div class="swiper-slide rounded-md" th:each="a : ${all}">
-                        <div class="card w-3/12">
-                          <img
-                            src="../static/images/cover1.jpg"
-                            alt="웹소설1"
-                          />
-                          <span th:text="${a.title}"></span>
-                          <span th:text="${a.author}"></span>
-                        </div>
-                      </div>
-                    </div>
-                    <div class="swiper-button-prev"></div>
-                    <div class="swiper-button-next"></div>
-                  </div>
-                </div>
-              </section>
+          </section>
+
+
+
             </form>
           </div>
         </div>
