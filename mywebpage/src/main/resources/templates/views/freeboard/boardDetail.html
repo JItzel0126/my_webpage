@@ -16,9 +16,9 @@
 
 <div layout:fragment="content">
     <div class="mt-2 mx-auto w-full sm:w-11/12">
-        <form action="/boards/{id}" id="listForm" name="listForm" method="get">
+        <form th:action="@{'/boards/'+${board.bno}}" id="listForm" name="listForm" method="get">
 
-            <section class="min-h-[85vh] grid grid-rows-[auto_2fr_auto_auto] gap-2 border-2 border-slate-100 bg-white shadow-sm px-1 py-2">
+            <section class="min-h-[85vh] grid grid-rows-[auto_2fr_auto_auto] gap-2 rounded border-2 border-slate-100 bg-white shadow-sm px-1 pt-2">
                 <div class="flex flex-col gap-1">
                 <div class="flex flex-row gap-1">
                     <div class="shrink-0 rounded border px-2 py-1">번호:
@@ -28,8 +28,12 @@
 <!--  sm:line-clamp-2 : 640px 이상(모바일)에서 두 줄까지 표시,
       md:line-clamp-none : 768 이상(데스크탑)에서 line-clamp 해제(전체 다 보여줌) -->
                     <div class="flex-1 border px-2 py-1 rounded">
-
+<!-- TODO: board.updatedAt.isAfter(now.minusDays(1)) : 최근 24시간 내에 등록·수정된 글
+           T(...) : 정적 클래스 접근 문법, T(클래스경로) → 해당 클래스를 가져오는 문법 -->
                             <div class="line-clamp-2 sm:line-clamp-2 md:line-clamp-none font-semibold">제목:
+                                <span class="badge mx-1 bg-green-400 "
+                                      th:if="${board.updatedAt.isAfter(T(java.time.LocalDateTime).now().minusDays(1))}"
+                                >Fresh</span>
                                 <span class="font-normal" th:text="${board.title}"></span>
 
                             <div class="badge ml-2"
@@ -40,41 +44,82 @@
                                  th:classappend="${board.likeCount > 0} ? 'bg-yellow-600' : 'bg-gray-200'"
                                  >좋아요 <span th:text="${board.likeCount}"></span> </div>
                             </div>
-
                     </div>
+
                         <div class="shrink-0 rounded border px-2 py-1">작성자:
                             <span th:text="${board.writer}"></span></div>
+
                         </div>
 
-                    <div class="flex flex-row">
+                    <div class="flex flex-row gap-1">
                         <div class="flex-1 flex justify-center items-center"><span class="badge bg-slate-300 text-base">contents</span></div>
                         <div class="shrink-0 rounded border px-2 py-1">조회수:
                             <span th:text="${board.viewCount}"></span></div>
                         <div class="shrink-0 rounded border px-2 py-1">작성일:
                             <span th:text="${#temporals.format(board.createdAt,'yyyy-MM-dd')}"></span></div>
+                        <!-- TODO: Thymeleaf는 SpEL(Spring Expression Language) 문법사용
+                                    && / || / ! : 사용 불가 , and / or / not 키워드 사용-->
+                        <div th:if="${board.updatedAt != null and board.updatedAt != board.createdAt}"
+                                class="shrink-0 rounded border px-2 py-1">수정일:
+                            <span th:text="${#temporals.format(board.updatedAt,'yyyy-MM-dd')}"></span></div>
                     </div>
                 </div>
 
                 <div class="rounded p-4 border" th:text="${board.content}"></div>
-                <div>
-                    <button>수정</button>
-                    <button>삭제</button>
-                </div>
+            </section>
+        </form>
+                <section class="flex flex-row justify-between mt-2 px-2">
+                    <div class="flex justify-start">
+                    <a th:href="@{'/boards'}"
+                       class="py-1 px-2 rounded border shadow-sm hover:bg-indigo-800 hover:text-slate-100 hover:font-bold"
+                    >목록</a>
+                    </div>
+                    <div class="flex flex-row justify-end gap-2">
+                    <a th:href="@{'/boards/'+${board.bno}+'/update'}"
+                       class="py-1 px-2 rounded border shadow-sm hover:bg-indigo-800 hover:text-slate-100 hover:font-bold"
+                    >수정</a>
+
+                <form th:action="@{'/boards/'+${board.bno}+'/delete'}" method="post"
+                      onsubmit="return confirm('정말 삭제할까요?');">
+                    <button type="submit"
+                       class="py-1 px-2 rounded border shadow-sm hover:bg-indigo-800 hover:text-slate-100 hover:font-bold"
+                    >삭제</button>
+                </form>
+                    </div>
+                </section>
+
                 <section class="p-2">
                     <div class="rounded p-1 mb-1 border flex justify-between items-center">
                         <input class="flex-1 border-none w-full" placeholder="댓글 입력"/>
-                        <button class="shrink-0 px-2 py-1 border rounded shadow-sm">등록</button>
+                        <button type="submit" class="shrink-0 px-2 py-1 border rounded shadow-sm hover:text-slate-200">등록</button>
                     </div>
-                    <div class="rounded p-1 border flex justify-between items-center">
-                        <div>댓글 목록</div>
+                    <div class="rounded p-1 border-2 flex justify-between items-center shadow-sm">
+                        <form th:action="@{'/boards/'+${board.bno}}" type="get">
+                        <div class="font-bold text-lg mb-2">댓글 목록</div>
+                            <div th:if="${#lists.isEmpty(comments)}">
+                                <p class="text-gray-500">아직 댓글이 없습니다.</p>
+                            </div>
+
+                        <ul th:each="c : ${comments}" class="space-y-2">
+                            <li class="border-b pb-2">
+                                <p class="font-semibold">
+                                    <span th:text="${c.writer}">작성자</span>
+                                    <span th:if="${c.replyCount > 0}"
+                                          class="ml-2 text-xs text-gray-500">(답글 [[${c.replyCount}]])</span>
+                                </p>
+                                <p th:text="${c.content}">댓글 내용</p>
+                                <small th:text="${#temporals.format(c.createdAt, 'yyyy-MM-dd HH:mm')}"></small>
+                            </li>
+                        </ul>
+                        </form>
                     </div>
 
                 </section>
-            </section>
 
 
 
-        </form>
+
+
     </div>
 </div>
 

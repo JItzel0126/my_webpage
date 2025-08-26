@@ -53,6 +53,7 @@ INSERT INTO freeboard (bno, title, content, like_count, view_count, comment_coun
 VALUES (19,'열아홉 번째 글', '아이스크림 먹고 싶다', 9, 55, 10, 'user4', '2025-06-18 21:10:00', '2025-06-18 21:10:00');
 INSERT INTO freeboard (bno, title, content, like_count, view_count, comment_count, user_name, created_at, updated_at)
 VALUES (20,'스무 번째 글', '이제 마지막 더미 데이터!', 3, 22, 1, 'user5', '2025-06-28 11:55:00', '2025-06-28 11:55:00');
+ALTER TABLE freeboard ALTER COLUMN bno RESTART WITH 21;
 
 -- =======================
 -- SERIES 샘플 데이터 (20개)

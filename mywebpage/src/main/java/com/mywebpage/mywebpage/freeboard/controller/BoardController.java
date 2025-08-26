@@ -1,5 +1,6 @@
 package com.mywebpage.mywebpage.freeboard.controller;
 
+import com.mywebpage.mywebpage.comment.boardcomment.dto.BcommentDto;
 import com.mywebpage.mywebpage.comment.boardcomment.service.BcommentService;
 import com.mywebpage.mywebpage.common.ErrorMsg;
 import com.mywebpage.mywebpage.common.MapStruct;
@@ -14,9 +15,7 @@ import org.springframework.data.domain.Pageable;
 import org.springframework.data.web.PageableDefault;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
@@ -49,10 +48,70 @@ public class BoardController {
 //TODO: @RequestParam 과 차이점 :
 // @RequestParam은 ?뒤에 오는 쿼리스트링을 가져옴 ( 예) /boards/detail?bno=10 → @RequestParam Long bno)
 // @PathVariable : @PathVariable은 경로 중에 포함된 변수를 가져옴 ( 예) /boards/10 → @PathVariable Long bno)
-    public String boardDetail(@PathVariable Long bno, Model model) {
+    public String boardDetail(@PathVariable Long bno, Model model,
+                              @RequestParam(defaultValue = "0") int page,
+                              @RequestParam(defaultValue = "10") int size) {
         BoardDto boardDto = boardService.getBoard(bno);  // 서비스에서 조회
+        List<BcommentDto> comments = bcommentService.getBcommentsByBoard(bno, page, size);
         model.addAttribute("board", boardDto);
+        model.addAttribute("comments", comments);
         return "views/freeboard/boardDetail";
     }
+
+
+//    추가 페이지 열기
+    @GetMapping("/boards/new")
+    public String boardPostView(Model model, BoardDto boardDto) {
+        model.addAttribute("board", boardDto);
+        return "views/freeboard/boardNew";
+    }
+
+//    추가
+    @PostMapping("/boards")
+    public String boardPost(@ModelAttribute BoardDto boardDto) {
+        boardService.save(boardDto);
+        return "redirect:/boards";
+    }
+
+//    수정 페이지 열기
+    @GetMapping("/boards/{bno}/update")
+    public String boardUpdateView(@PathVariable Long bno, Model model) {
+        BoardDto boardDto = boardService.getBoard(bno);
+        model.addAttribute("board", boardDto);
+        return "views/freeboard/boardUpdate";
+    }
+
+//    수정
+    @PostMapping("/boards/{bno}/update")
+    public String boardUpdate(@PathVariable Long bno,
+                              @ModelAttribute BoardDto boardDto) {
+        boardService.update(bno, boardDto);
+        return "redirect:/boards/"+bno;
+    }
+
+//    삭제
+    @PostMapping("/boards/{bno}/delete")
+    public String boardDelete(@PathVariable Long bno) {
+        boardService.delete(bno);
+        return "redirect:/boards";
+    }
+
+
+    // 댓글 등록
+    @PostMapping("/boards/{bno}/comments")
+    public String addComment(@PathVariable Long bno,
+                             @ModelAttribute BcommentDto commentDto) {
+        bcommentService.saveBcomment(commentDto, bno);
+        return "redirect:/boards/" + bno;
+    }
+
+        // 댓글 삭제
+    @PostMapping("/boards/{bno}/comments/{cno}/delete")
+    public String deleteComment(@PathVariable Long bno,
+                                @PathVariable Long bcno) {
+        bcommentService.deleteReplis(bcno);
+        return "redirect:/boards/" + bno;
+    }
+
 
 }

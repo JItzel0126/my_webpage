@@ -37,6 +37,7 @@ public interface MapStruct {
 
 
 //    user
+
     User toEntity(UserDto userDto);
     UserDto toDto(User user);
 
@@ -47,7 +48,12 @@ public interface MapStruct {
     @Mapping(source = "writer.name", target = "writer")
     BoardDto toDto(Board board);
 //    더티체킹
-    @Mapping(source = "writer", target = "writer.name")
+
+    @Mapping(ignore = true, target = "writer")
+    @Mapping(ignore = true, target = "bno")
+    @Mapping(ignore = true, target = "likeCount")
+    @Mapping(ignore = true, target = "viewCount")
+    @Mapping(ignore = true, target = "commentCount")
     void update(BoardDto boardDto, @MappingTarget Board board);
 
 //    bcomment

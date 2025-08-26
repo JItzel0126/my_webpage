@@ -17,7 +17,7 @@
 <div layout:fragment="content">
     <div class="flex flex-col justify-center px-2 mx-auto
                 w-full sm:w-11/12">
-        <form action="/boards" id="listForm" name="listForm" method="get">
+        <form th:action="@{'/boards'}" id="listForm" name="listForm" method="get">
             <!-- 검색창 -->
             <div class="input-group my-3">
                 <input type="text" class="form-control" th:value="${keyword}" name="keyword" aria-label="Text input with dropdown button"
@@ -56,10 +56,15 @@
                                 class="text-center hidden md:table-cell"
                                 th:text="${b.bno}"></th>
                             <td class="overflow-hidden whitespace-nowrap truncate max-w-[150px] md:max-w-none">
+                                <a th:href="@{'/boards/'+${b.bno}}">
+                                    <span class="badge mr-2 bg-green-400"
+                                          th:if="${b.updatedAt.isAfter(T(java.time.LocalDateTime).now().minusDays(1))}"
+                                    >Fresh</span>
                                 <span th:text="${b.title}"></span>
                                 <div class="badge ml-2"
                                      th:classappend="${b.commentCount > 0} ? 'bg-amber-600' : 'bg-gray-200'"
                                 >댓글 <span th:text="${b.commentCount}"></span> </div>
+                            </a>
                             </td>
                             <td class="text-center" th:text="${b.writer}"></td>
                             <td class="text-center" th:text="${b.viewCount}"></td>
@@ -78,7 +83,12 @@
                     </tbody>
                 </table>
             </div>
-            <nav class="mx-auto">
+            <nav class="mx-auto flex flex-row justify-between items-center">
+                <div>
+                    <a th:href="@{'/boards/new'}"
+                            class="py-1 px-2 rounded border shadow-sm hover:bg-indigo-800 hover:text-slate-100 hover:font-bold"
+                    >글쓰기</a>
+                </div>
                 <ul class="pagination justify-content-center md:justify-self-end gap-1">
                     <!-- 처음 -->
                     <li th:classappend="${page.first} ? 'disabled'">

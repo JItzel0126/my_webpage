@@ -7,6 +7,8 @@ import com.mywebpage.mywebpage.common.MapStruct;
 import com.mywebpage.mywebpage.freeboard.dto.BoardDto;
 import com.mywebpage.mywebpage.freeboard.entity.Board;
 import com.mywebpage.mywebpage.freeboard.repository.BoardRepository;
+import com.mywebpage.mywebpage.user.entity.User;
+import com.mywebpage.mywebpage.user.repository.UserRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
@@ -20,6 +22,7 @@ import org.springframework.transaction.annotation.Transactional;
 public class BoardService {
     private final BoardRepository boardRepository;
     private final BcommentRepository bcommentRepository;
+    private final UserRepository userRepository;
     private final MapStruct mapStruct;
     private final ErrorMsg errorMsg;
 
@@ -71,18 +74,26 @@ public class BoardService {
 //    추가
     public void save(BoardDto boardDto) {
         Board board = mapStruct.toEntity(boardDto);
+
+        // 임시 작성자 고정(로그인 기능 작성 전)
+        User dummy = userRepository.findById(1L)
+                .orElseThrow(() -> new RuntimeException(errorMsg.getMessage("errors.not.found")));
+        board.setWriter(dummy);
+
         boardRepository.save(board);
     }
 
 //    삭제
-    public void delete(long bno) {
+//  @Transactional : 실무에서 삭제 시 다른 연관관계까지 cascade 처리하는 경우가 많기 때문에 사용
+    @Transactional
+    public void delete(Long bno) {
         boardRepository.deleteById(bno);
     }
 
 //    업데이트
     @Transactional
-    public void update(BoardDto boardDto) {
-        Board board = boardRepository.findById(boardDto.getBno())
+    public void update(Long bno, BoardDto boardDto) {
+        Board board = boardRepository.findById(bno)
                 .orElseThrow(()->new RuntimeException(errorMsg.getMessage("errors.not.found")));
         mapStruct.update(boardDto, board);
     }
