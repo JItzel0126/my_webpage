@@ -59,7 +59,7 @@ public interface MapStruct {
 //    bcomment
 //  @Mapping(sorce="", target="객체.참조객체의 필드")
     @Mapping(source = "writer", target = "writer.name")
-    @Mapping(source = "parentBcno", target = "parent.bcno")
+    @Mapping(ignore = true, target = "parent")
     Bcomment toEntity(BcommentDto bcommentDto);
 //   parent 객체의 id → DTO.parentBcno
     @Mapping(source = "writer.name", target = "writer")

@@ -12,6 +12,7 @@ INSERT INTO users (uno, name, password, email, role, created_at, updated_at) VAL
 INSERT INTO users (uno, name, password, email, role, created_at, updated_at) VALUES(10,'superuser', 'super1234', 'super@example.com', 'ROLE_ADMIN', '2025-06-15 17:55:00', '2025-06-15 17:55:00');
 
 
+-- 게시글 더미 데이터
 
 INSERT INTO freeboard (bno, title, content, like_count, view_count, comment_count, user_name, created_at, updated_at)
 VALUES (1,'첫 번째 글', '안녕하세요! 테스트 글입니다.', 3, 12, 0, 'user1', '2025-01-05 10:15:00', '2025-01-05 10:15:00');
@@ -54,6 +55,13 @@ VALUES (19,'열아홉 번째 글', '아이스크림 먹고 싶다', 9, 55, 10, '
 INSERT INTO freeboard (bno, title, content, like_count, view_count, comment_count, user_name, created_at, updated_at)
 VALUES (20,'스무 번째 글', '이제 마지막 더미 데이터!', 3, 22, 1, 'user5', '2025-06-28 11:55:00', '2025-06-28 11:55:00');
 ALTER TABLE freeboard ALTER COLUMN bno RESTART WITH 21;
+
+
+-- 댓글 더미 데이터
+
+INSERT INTO board_comment (content, board_bno, user_name, parent_bcno,  created_at, updated_at)
+VALUES ('테스트 댓글입니다.', 20, 'user1', null, '2025-08-27 09:10:00', '2025-08-27 09:10:00');
+
 
 -- =======================
 -- SERIES 샘플 데이터 (20개)

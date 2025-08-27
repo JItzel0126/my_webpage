@@ -36,7 +36,7 @@ public class Bcomment extends BaseTimeEntity {
 //      연관된 부모 엔티티 모두 가져옴
 //      즉시로딩이라 지연로딩 명시 필요
     @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "user_uno", nullable = false)
+    @JoinColumn(name = "user_name", referencedColumnName="name", nullable = false)
     private User writer;
 
 //    대댓글용

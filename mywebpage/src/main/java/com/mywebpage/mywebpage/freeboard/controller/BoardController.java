@@ -106,7 +106,7 @@ public class BoardController {
     }
 
         // 댓글 삭제
-    @PostMapping("/boards/{bno}/comments/{cno}/delete")
+    @PostMapping("/boards/{bno}/comments/{bcno}/delete")
     public String deleteComment(@PathVariable Long bno,
                                 @PathVariable Long bcno) {
         bcommentService.deleteReplis(bcno);

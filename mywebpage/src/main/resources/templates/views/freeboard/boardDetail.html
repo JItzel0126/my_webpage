@@ -89,29 +89,47 @@
                 </section>
 
                 <section class="p-2">
-                    <div class="rounded p-1 mb-1 border flex justify-between items-center">
-                        <input class="flex-1 border-none w-full" placeholder="댓글 입력"/>
-                        <button type="submit" class="shrink-0 px-2 py-1 border rounded shadow-sm hover:text-slate-200">등록</button>
-                    </div>
-                    <div class="rounded p-1 border-2 flex justify-between items-center shadow-sm">
+                    <form th:action="@{'/boards/'+${board.bno}+'/comments'}" method="post">
+                        <div class="rounded p-1 mb-1 border flex justify-between items-center">
+                            <input name="content" class="flex-1 border-none w-full" placeholder="댓글 입력"/>
+                            <button type="submit" class="shrink-0 px-2 py-1 border rounded shadow-sm hover:text-slate-200">등록</button>
+                        </div>
+                    </form>
+                    <div class="rounded p-1 border-2 flex flex-col shadow-sm">
                         <form th:action="@{'/boards/'+${board.bno}}" type="get">
-                        <div class="font-bold text-lg mb-2">댓글 목록</div>
+                        <div class="font-bold text-lg mb-2 border-b pb-4">댓글 목록</div>
                             <div th:if="${#lists.isEmpty(comments)}">
                                 <p class="text-gray-500">아직 댓글이 없습니다.</p>
                             </div>
+                        </form>
 
-                        <ul th:each="c : ${comments}" class="space-y-2">
+                        <ul th:each="c : ${comments}" class="space-y-2 px-2">
                             <li class="border-b pb-2">
-                                <p class="font-semibold">
-                                    <span th:text="${c.writer}">작성자</span>
-                                    <span th:if="${c.replyCount > 0}"
-                                          class="ml-2 text-xs text-gray-500">(답글 [[${c.replyCount}]])</span>
-                                </p>
-                                <p th:text="${c.content}">댓글 내용</p>
-                                <small th:text="${#temporals.format(c.createdAt, 'yyyy-MM-dd HH:mm')}"></small>
+                                <form th:action="@{'/boards/'+${board.bno}+'/comments'}" method="get">
+                                    <div class="flex justify-between items-center">
+                                        <p class="font-semibold">
+                                            <span th:text="${c.writer}"></span>
+                                            <span th:if="${c.replyCount > 0}"
+                                                  class="ml-2 text-xs text-gray-500">(답글 [[${c.replyCount}]])</span>
+                                        </p>
+                                    </div>
+                                    <div>
+                                        <p th:text="${c.content}"></p>
+                                        <small th:text="${#temporals.format(c.createdAt, 'yyyy-MM-dd HH:mm')}"></small>
+                                    </div>
+                                </form>
+                                <!-- TODO: 대댓글 추가 버튼 -->
+<!--                                <form th:action="@{'/boards/'+${board.bno}+'/comments/'+${c.bcno}+'/delete'}"-->
+<!--                                      method="post" class="inline">-->
+<!--                                    <button type="submit" class="text-red-500 text-xs">댓글</button>-->
+<!--                                </form>-->
+                                <form th:action="@{'/boards/'+${board.bno}+'/comments/'+${c.bcno}+'/delete'}"
+                                      method="post" class="inline">
+                                    <button type="submit" class="text-red-500 text-xs">삭제</button>
+                                </form>
                             </li>
                         </ul>
-                        </form>
+
                     </div>
 
                 </section>
