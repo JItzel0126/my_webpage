@@ -2,6 +2,8 @@ package com.mywebpage.mywebpage.common;
 
 import com.mywebpage.mywebpage.comment.boardcomment.dto.BcommentDto;
 import com.mywebpage.mywebpage.comment.boardcomment.entity.Bcomment;
+import com.mywebpage.mywebpage.comment.novelcomment.dto.NcommentDto;
+import com.mywebpage.mywebpage.comment.novelcomment.entity.Ncomment;
 import com.mywebpage.mywebpage.freeboard.dto.BoardDto;
 import com.mywebpage.mywebpage.freeboard.entity.Board;
 import com.mywebpage.mywebpage.novel.episode.dto.EpisodeDto;
@@ -65,4 +67,13 @@ public interface MapStruct {
     @Mapping(source = "writer.name", target = "writer")
     @Mapping(source = "parent.bcno", target = "parentBcno")
     BcommentDto toDto(Bcomment bcomment);
+
+//    ncomment
+    @Mapping(ignore = true, target = "writer")
+    @Mapping(ignore = true, target = "series")
+    Ncomment toEntity(NcommentDto ncommentDto);
+    @Mapping(source = "writer.name", target = "writer")
+    @Mapping(source = "series.id", target = "id")
+    NcommentDto toDto(Ncomment ncomment);
+
 }
