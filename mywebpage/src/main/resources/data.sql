@@ -56,13 +56,6 @@ INSERT INTO freeboard (bno, title, content, like_count, view_count, comment_coun
 VALUES (20,'스무 번째 글', '이제 마지막 더미 데이터!', 3, 22, 1, 'user5', '2025-06-28 11:55:00', '2025-06-28 11:55:00');
 ALTER TABLE freeboard ALTER COLUMN bno RESTART WITH 21;
 
-
--- 댓글 더미 데이터
-
-INSERT INTO board_comment (content, board_bno, user_name, parent_bcno,  created_at, updated_at)
-VALUES ('테스트 댓글입니다.', 20, 'user1', null, '2025-08-27 09:10:00', '2025-08-27 09:10:00');
-
-
 -- =======================
 -- SERIES 샘플 데이터 (20개)
 -- =======================
@@ -271,4 +264,23 @@ insert into episode (id, series_id, epi_number, price, epi_title, content, creat
 values(59, 20, 2,100,'첫 만남', '운명적인 만남.', '2025-09-09 16:10:00', '2025-09-09 16:10:00');
 insert into episode (id, series_id, epi_number, price, epi_title, content, created_at, updated_at)
 values(60, 20, 3,100,'로맨스', '두 사람의 사랑이 시작된다.', '2025-09-10 19:25:00', '2025-09-10 19:25:00');
+
+
+
+
+-- 시리즈 댓글 더미 데이터
+INSERT INTO novel_comment (ncno, content, series_id, user_name, created_at, updated_at)
+VALUES (1, '첫 댓글입니다! 반갑습니다.', 1, 'user1', '2025-04-20 18:25:00', '2025-04-20 18:25:00');
+
+INSERT INTO novel_comment (ncno, content, series_id, user_name, created_at, updated_at)
+VALUES (2, '두번째 댓글도 테스트용!', 1, 'user1', '2025-04-20 18:25:00', '2025-04-20 18:25:00');
+
+INSERT INTO novel_comment (ncno, content, series_id, user_name, created_at, updated_at)
+VALUES (3, '다른 시리즈에 단 댓글이에요.', 2, 'user1', '2025-04-20 18:25:00', '2025-04-20 18:25:00');
+ALTER TABLE novel_comment ALTER COLUMN ncno RESTART WITH 4;
+
+-- 게시판 댓글 더미 데이터
+
+INSERT INTO board_comment (content, board_bno, user_name, parent_bcno,  created_at, updated_at)
+VALUES ('테스트 댓글입니다.', 20, 'user1', null, '2025-08-27 09:10:00', '2025-08-27 09:10:00');
 

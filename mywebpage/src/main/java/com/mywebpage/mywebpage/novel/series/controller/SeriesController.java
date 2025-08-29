@@ -7,6 +7,8 @@ import lombok.extern.log4j.Log4j2;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.RequestParam;
 
 import java.util.List;
 
@@ -49,6 +51,14 @@ public class SeriesController {
 //        model.addAttribute("genreMap", genreMap);
 //        return "home";
 //    }
+
+//    상세조회
+    @GetMapping("/series/{id}")
+    public String getSeries(@PathVariable Long id, Model model) {
+        SeriesDto series = seriesService.findById(id);
+        model.addAttribute("series", series);
+        return "views/novel/series";
+    }
 
 
 

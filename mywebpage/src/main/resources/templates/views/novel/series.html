@@ -1,0 +1,195 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      layout:decorate="~{common/layout}">
+
+<!-- 페이지 전용 head 추가 -->
+<th:block layout:fragment="pageHead">
+    <title>시리즈 | Papaya Novel</title>
+    <!-- 부트스트랩 -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/css/bootstrap.min.css"
+          rel="stylesheet"
+          integrity="sha384-rbsA2VBKQhggwzxH7pPCaAqO46MgnOM80zW1RWuH61DGLwZJEdK2Kadq2F9CUG65"
+          crossorigin="anonymous">
+</th:block>
+
+
+<div layout:fragment="content">
+    <div class="mt-2 mx-auto w-full sm:w-11/12">
+
+        <section class="flex gap-6 p-4 border rounded-lg shadow-sm">
+            <div class="w-32 h-44 overflow-hidden rounded-md border">
+                <img src="/images/cover8.jpg" alt="책 표지"
+                     class="w-full h-full object-cover"/>
+            </div>
+            <div class="flex-1">
+                <h3 th:text="${series.title}" class="text-xl font-bold mb-1"></h3>
+                <p th:text="${series.author}" class="text-sm text-gray-600 mb-1"></p>
+                <p th:text="${series.publisher}" class="text-sm text-gray-600 mb-1"></p>
+                <p class="text-yellow-500 mb-2">⭐ 평점 4.9 (13,753명)</p>
+                <div class="flex gap-2">
+                    <a class="px-3 py-1 bg-indigo-500 text-white rounded hover:bg-indigo-600">첫화보기</a>
+                    <button class="px-3 py-1 border rounded hover:bg-gray-100">장바구니</button>
+                </div>
+            </div>
+            <div class="text-2xl">🤍</div>
+        </section>
+
+        <article class="mt-6 p-4 border rounded-lg shadow-sm bg-gray-50">
+            <h3 class="text-lg font-semibold mb-2">💬 작품 소개</h3>
+
+            <p th:text="${series.description}" class="text-gray-700 leading-relaxed line-clamp-3"></p>
+
+            <button class="mt-2 text-sm text-indigo-500 hover:underline">더보기 ⌄</button>
+        </article>
+
+        <section class="mt-6">
+            <div class="flex justify-between items-center mb-2">
+                <h3 class="text-lg font-semibold">📖 회차 목록</h3>
+                <select class="border rounded px-2 py-1 text-sm">
+                    <option value="first">1화부터</option>
+                    <option value="lastest">최신순</option>
+                </select>
+            </div>
+
+            <div>
+                <ul class="divide-y border rounded shadow-sm">
+                    <div>
+                        <li class="p-3 hover:bg-gray-50 cursor-pointer">에피소드1</li>
+                    </div>
+                </ul>
+            </div>
+        </section>
+
+
+
+        <!-- 댓글 영역 -->
+        <section class="mt-6">
+            <div class="flex flex-row justify-between items-center">
+
+        <h3 class="font-bold">댓글목록</h3>
+
+        <select id="sortSelect" class="form-select w-auto d-inline shadow-sm" aria-label="Default select example">
+            <option value="desc">최신순</option>
+            <option value="asc">오래된순</option>
+        </select>
+            </div>
+
+        <div class="input-group shadow-sm mt-2">
+            <input type="text" id="commentInput" class="form-control" placeholder="댓글 쓰기"/>
+            <button id="commentBtn" class="btn btn-primary">등록</button>
+        </div>
+
+        <div class="border-2 rounded shadow-sm my-2 p-2">
+            <ul id="commentList" class="list-group mb-3">
+                <button id="delBtn" class="btn btn-sm btn-outline-danger">삭제</button>
+            </ul>
+        </div>
+        </section>
+
+    </div>
+
+
+</div>
+
+<!-- boardDetail.html -->
+<th:block layout:fragment="extraScript">
+    <!-- 부트스트랩 -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/js/bootstrap.bundle.min.js"
+            integrity="sha384-kenU1KFdBIe4zVF0s0G1M5b4hcpxyD9F7jL+jjXkk+Q2h455rYXK/7HAuoJl+0I4"
+            crossorigin="anonymous"></script>
+
+    <script th:inline="javascript">
+<!--  TODO: 1) 서버에서 Thymeleaf로 series.id를 주입 -->
+
+    // TODO: 예) /series/1 -> seriesId = 1;
+        const seriesId = [[${series.id}]];
+    // TODO : sort="desc"를 기본 매개변수로 지정
+    async function loadComments(sort = "desc") {
+        try {
+    // TODO: 2) JS fetch("/ncomments/{id}?sort=desc") 호출 → 컨트롤러에서 JSON 반환
+            const response = await fetch(`/ncomments/${seriesId}?sort=${sort}`);
+            if (!response.ok) {
+                throw new Error("댓글 불러오기 실패");
+            }
+            const comments = await response.json();
+
+    //  TODO: 3) 받아온 JSON으로 <ul id="commentList"> 안에 li 생성
+            const list = document.getElementById("commentList");
+            list.innerHTML = "";
+
+            comments.forEach((c) => {
+                const li = document.createElement("li");
+                li.className = "list-group-item d-flex justify-content-between align-items-center";
+                li.innerHTML = `
+    <span class="text-gray-800">
+      ${c.content} <span class="text-sm text-gray-500">(${c.writer})</span>
+    </span>
+    <button class="text-red-500 hover:text-red-700 text-sm">삭제</button>
+  `;
+
+                li.querySelector("button").onclick = () => deleteComment(c.ncno);
+
+                list.appendChild(li);
+            });
+        } catch (e) {
+            console.error(e);
+        }
+    }
+
+//     삭제
+async function deleteComment(ncno) {
+    const response = await fetch(`/ncomments/${ncno}`, {
+        method: "DELETE"
+    });
+
+    if (response.ok) {
+        loadComments(); // 삭제 후 목록 갱신
+    } else {
+        alert("댓글 삭제 실패 😭");
+    }
+}
+
+    // 정렬 옵션이 바뀔 때
+        document.getElementById("sortSelect").addEventListener("change", (e) => {
+            loadComments(e.target.value);
+        });
+
+// 댓글 등록
+document.getElementById("commentBtn").addEventListener("click", async () => {
+    const content = document.getElementById("commentInput").value.trim();
+    if (!content) {
+        alert("댓글 내용을 입력해주세요!");
+        return;
+    }
+
+    const response = await fetch("/ncomments", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({
+            id: seriesId,
+            content: content,
+            writer: "user1"
+        })
+    });
+
+    if (response.ok) {
+        document.getElementById("commentInput").value = "";
+        loadComments();
+    } else {
+        alert("댓글 등록 실패 😭");
+    }
+});
+
+    // 페이지 로드 시 기본 최신순으로 불러오기
+    loadComments();
+
+
+
+
+
+
+    </script>
+</th:block>
+
+</html>
