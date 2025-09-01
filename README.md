@@ -4,31 +4,42 @@
 사용자는 웹소설 시리즈(작품)와 에피소드를 열람하고, 자유게시판에서 소통하며, 댓글을 Ajax 기반으로 등록/삭제/정렬할 수 있다.  
 로그인/회원가입, 장바구니 기능을 통해 실제 서비스와 유사한 경험을 제공한다.  
 
+## 🚀 Tech Stack
+
+![Java](https://img.shields.io/badge/Java-17-007396?logo=openjdk&logoColor=white)
+![Spring Boot](https://img.shields.io/badge/Spring%20Boot-3.x-6DB33F?logo=springboot&logoColor=white)
+![Spring Data JPA](https://img.shields.io/badge/Spring%20Data%20JPA-59666C?logo=spring&logoColor=white)
+![Thymeleaf](https://img.shields.io/badge/Thymeleaf-005F0F?logo=thymeleaf&logoColor=white)
+![Gradle](https://img.shields.io/badge/Gradle-02303A?logo=gradle&logoColor=white)
+![H2 Database](https://img.shields.io/badge/H2%20Database-003545?logo=h2&logoColor=white)
+![Bootstrap](https://img.shields.io/badge/Bootstrap-5-7952B3?logo=bootstrap&logoColor=white)
+![TailwindCSS](https://img.shields.io/badge/TailwindCSS-3-06B6D4?logo=tailwindcss&logoColor=white)
+
 ---
 
 ## 🚀 주요 기능
 
 ### 1. 소설 시리즈 & 에피소드
-[x] 시리즈 CRUD
-[x] 시리즈 상세 → 에피소드 목록 (최신순/1화부터 정렬 가능)
-[x] 작품 소개, 표지 이미지 출력
+- [x] 시리즈 CRUD
+- [x] 시리즈 상세 → 에피소드 목록 (최신순/1화부터 정렬 가능)
+- [x] 작품 소개, 표지 이미지 출력
 
 ### 2. 게시판 (Freeboard)
-[x] 자유게시판 CRUD
-[x] 게시글 상세, 수정, 삭제
-[x] 게시글 댓글 (대댓글 지원)
+- [x] 자유게시판 CRUD
+- [x] 게시글 상세, 수정, 삭제
+- [x] 게시글 댓글 (대댓글 지원)
 
 ### 3. 댓글 (Ajax 기반)
-[x] 소설 댓글, 게시판 댓글 모두 **fetch()** 기반 Ajax 통신
-[x] 댓글 등록/삭제 실시간 반영
-[x] 정렬(최신순 / 오래된순)
+- [x] 소설 댓글, 게시판 댓글 모두 **fetch()** 기반 Ajax 통신
+- [x] 댓글 등록/삭제 실시간 반영
+- [x] 정렬(최신순 / 오래된순)
 
 ### 4. 회원 관리
-[ ] 회원가입, 로그인 (User Entity)
-[x] DTO/Entity 변환은 MapStruct 사용
+- [ ] 회원가입, 로그인 (User Entity)
+- [x] DTO/Entity 변환은 MapStruct 사용
 
 ### 5. 장바구니 (Cart - 예정)
-[ ] 소설 에피소드 유료 구매용 장바구니 기능 (기본 뼈대)
+- [ ] 소설 에피소드 유료 구매용 장바구니 기능 (기본 뼈대)
 
 ---
 
