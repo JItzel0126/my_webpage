@@ -9,33 +9,33 @@
 ## 🚀 주요 기능
 
 ### 1. 소설 시리즈 & 에피소드
-- 시리즈 CRUD
-- 시리즈 상세 → 에피소드 목록 (최신순/1화부터 정렬 가능)
-- 작품 소개, 표지 이미지 출력
+[x] 시리즈 CRUD
+[x] 시리즈 상세 → 에피소드 목록 (최신순/1화부터 정렬 가능)
+[x] 작품 소개, 표지 이미지 출력
 
 ### 2. 게시판 (Freeboard)
-- 자유게시판 CRUD
-- 게시글 상세, 수정, 삭제
-- 게시글 댓글 (대댓글 지원)
+[x] 자유게시판 CRUD
+[x] 게시글 상세, 수정, 삭제
+[x] 게시글 댓글 (대댓글 지원)
 
 ### 3. 댓글 (Ajax 기반)
-- 소설 댓글, 게시판 댓글 모두 **fetch()** 기반 Ajax 통신
-- 댓글 등록/삭제 실시간 반영
-- 정렬(최신순 / 오래된순)
+[x] 소설 댓글, 게시판 댓글 모두 **fetch()** 기반 Ajax 통신
+[x] 댓글 등록/삭제 실시간 반영
+[x] 정렬(최신순 / 오래된순)
 
 ### 4. 회원 관리
-- 회원가입, 로그인 (User Entity)
-- DTO/Entity 변환은 MapStruct 사용
+[ ] 회원가입, 로그인 (User Entity)
+[x] DTO/Entity 변환은 MapStruct 사용
 
 ### 5. 장바구니 (Cart - 예정)
-- 소설 에피소드 유료 구매용 장바구니 기능 (기본 뼈대)
+[ ] 소설 에피소드 유료 구매용 장바구니 기능 (기본 뼈대)
 
 ---
 
 ## 🛠 기술 스택
 
 - **Backend**: Spring Boot 3.x, Spring Data JPA, Hibernate  
-- **Database**: H2 (개발용), MySQL (배포 고려)  
+- **Database**: H2 (개발용) 
 - **Frontend**: Thymeleaf, Tailwind CSS, Bootstrap  
 - **Ajax 통신**: fetch API  
 - **Mapping**: MapStruct  
