@@ -40,12 +40,12 @@
 - **Ajax 통신**: fetch API  
 - **Mapping**: MapStruct  
 - **Build**: Gradle
-
 - **Etc**: Lombok, Validation, Error Handling (messages.properties)
 
 ---
 
 ## 📂 프로젝트 구조
+```
 src/main/java/com/mywebpage/mywebpage
 ├─ comment
 │ ├─ boardcomment (게시판 댓글)
@@ -57,7 +57,7 @@ src/main/java/com/mywebpage/mywebpage
 │ ├─ episode (에피소드 CRUD)
 │ └─ series (시리즈 CRUD)
 └─ user (회원 관리)
-
+```
 템플릿/정적 리소스:
 
 src/main/resources
@@ -91,6 +91,4 @@ H2 Console: http://localhost:8080/h2-console
 로그인/회원가입
 
 
-- **Etc**: Lombok, Validation, Error Handling (messages.properties)
 
----
