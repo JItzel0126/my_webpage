@@ -18,6 +18,15 @@
 
 ---
 
+| 영역 | 기술 |
+|------|----------------|
+| Backend | Spring Boot, JPA, Hibernate |
+| Frontend | Thymeleaf, Tailwind CSS, Bootstrap |
+| DB | H2 Database |
+| Build | Gradle |
+
+---
+
 ## 🚀 주요 기능
 
 ### 1. 소설 시리즈 & 에피소드
@@ -41,6 +50,12 @@
 
 ### 5. 장바구니 (Cart - 예정)
 - [ ] 소설 에피소드 유료 구매용 장바구니 기능 (기본 뼈대)
+
+---
+
+## 🔮 향후 계획
+- [ ] Spring Security 적용 → 로그인/회원가입 기능 강화 (세션/인증 처리)
+- [ ] 댓글 / 게시판 권한 관리
 
 ---
 
