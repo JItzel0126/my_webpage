@@ -58,15 +58,16 @@ src/main/java/com/mywebpage/mywebpage
 │ └─ series (시리즈 CRUD)
 └─ user (회원 관리)
 ```
-템플릿/정적 리소스:
 
+## 템플릿/정적 리소스:
+```
 src/main/resources
 ├─ static (css, js, images)
 └─ templates
 ├─ common (layout, header, footer)
 ├─ freeboard (게시판 관련 뷰)
 └─ novel (시리즈/에피소드 뷰)
-
+```
 ---
 
 ## ⚙️ 실행 방법
@@ -78,6 +79,7 @@ cd my_webpage
 
 # 실행 (Gradle)
 ./gradlew bootRun
+```
 
 기본 접속 URL: http://localhost:8080
 H2 Console: http://localhost:8080/h2-console
