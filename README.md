@@ -1,7 +1,8 @@
 # 📚 Papaya Novel (my_webpage)
 
 프로젝트 **#Page**의 클론 프로젝트.  
-사용자는 웹소설 시리즈(작품)와 에피소드를 열람하고, 자유게시판에서 소통하며, 댓글을 Ajax 기반으로 등록/삭제/정렬할 수 있다.  
+사용자는 웹소설 시리즈(작품)와 에피소드를 열람하고, 자유게시판에서 소통하며,
+댓글을 Ajax 기반으로 등록/삭제/정렬할 수 있다.  
 로그인/회원가입, 장바구니 기능을 통해 실제 서비스와 유사한 경험을 제공한다.  
 
 ## 🚀 Tech Stack
@@ -92,16 +93,16 @@ cd my_webpage
 ./gradlew bootRun
 ```
 
-기본 접속 URL: http://localhost:8080
-H2 Console: http://localhost:8080/h2-console
+- 기본 접속 URL: http://localhost:8080
+- H2 Console: http://localhost:8080/h2-console
 
 ## 📸 화면 예시
 
-(캡처 이미지 추가 예정)
+- (캡처 이미지 추가 예정)
 
-시리즈 상세 페이지 (에피소드 + 댓글 Ajax)
-게시판 CRUD
-로그인/회원가입
+- 시리즈 상세 페이지 (에피소드 + 댓글 Ajax)
+- 게시판 CRUD
+- 로그인/회원가입
 
 
 
