@@ -273,7 +273,7 @@ INSERT INTO novel_comment (ncno, content, series_id, user_name, created_at, upda
 VALUES (1, '첫 댓글입니다! 반갑습니다.', 1, 'user1', '2025-04-20 18:25:00', '2025-04-20 18:25:00');
 
 INSERT INTO novel_comment (ncno, content, series_id, user_name, created_at, updated_at)
-VALUES (2, '두번째 댓글도 테스트용!', 1, 'user1', '2025-04-20 18:25:00', '2025-04-20 18:25:00');
+VALUES (2, '두번째 댓글도 테스트용!', 1, 'user1', '2025-04-20 18:25:30', '2025-04-20 18:25:30');
 
 INSERT INTO novel_comment (ncno, content, series_id, user_name, created_at, updated_at)
 VALUES (3, '다른 시리즈에 단 댓글이에요.', 2, 'user1', '2025-04-20 18:25:00', '2025-04-20 18:25:00');

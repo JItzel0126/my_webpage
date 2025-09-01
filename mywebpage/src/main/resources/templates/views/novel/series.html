@@ -46,17 +46,20 @@
         <section class="mt-6">
             <div class="flex justify-between items-center mb-2">
                 <h3 class="text-lg font-semibold">📖 회차 목록</h3>
-                <select class="border rounded px-2 py-1 text-sm">
-                    <option value="first">1화부터</option>
-                    <option value="lastest">최신순</option>
+                <form method="get" th:action="@{'/series/'+${series.id}}">
+                <select name="sort" onchange="this.form.submit()" class="border rounded px-2 py-1 text-sm">
+                    <option value="desc" th:selected="${sort == null or sort == 'desc'}">최신순</option>
+                    <option value="asc" th:selected="${sort == 'asc'}">1화부터</option>
                 </select>
+                </form>
             </div>
 
             <div>
-                <ul class="divide-y border rounded shadow-sm">
-                    <div>
-                        <li class="p-3 hover:bg-gray-50 cursor-pointer">에피소드1</li>
-                    </div>
+                <ul class="divide-y border rounded shadow-sm" id="episodeList">
+                        <li th:each="ep : ${series.episode}" class="p-3 hover:bg-gray-50 cursor-pointer flex flex-row justify-between">
+                            <span th:text="${ep.epiNumber} +'화 - ' + ${ep.epiTitle}"></span>
+                            <span class="ml-2 text-sm text-gray-500" th:text="${ep.price} + '원'"></span>
+                        </li>
                 </ul>
             </div>
         </section>
@@ -103,7 +106,7 @@
 <!--  TODO: 1) 서버에서 Thymeleaf로 series.id를 주입 -->
 
     // TODO: 예) /series/1 -> seriesId = 1;
-        const seriesId = [[${series.id}]];
+        const seriesId = [[${series.Id}]];
     // TODO : sort="desc"를 기본 매개변수로 지정
     async function loadComments(sort = "desc") {
         try {
@@ -138,7 +141,7 @@
     }
 
 //     삭제
-async function deleteComment(ncno) {
+    async function deleteComment(ncno) {
     const response = await fetch(`/ncomments/${ncno}`, {
         method: "DELETE"
     });
@@ -151,9 +154,12 @@ async function deleteComment(ncno) {
 }
 
     // 정렬 옵션이 바뀔 때
-        document.getElementById("sortSelect").addEventListener("change", (e) => {
-            loadComments(e.target.value);
-        });
+const sortSelect = document.getElementById("sortSelect");
+    sortSelect.addEventListener("change", (event) => {
+        loadComments(event.target.value); })
+
+
+
 
 // 댓글 등록
 document.getElementById("commentBtn").addEventListener("click", async () => {
@@ -183,11 +189,6 @@ document.getElementById("commentBtn").addEventListener("click", async () => {
 
     // 페이지 로드 시 기본 최신순으로 불러오기
     loadComments();
-
-
-
-
-
 
     </script>
 </th:block>

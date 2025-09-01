@@ -1,9 +1,16 @@
 package com.mywebpage.mywebpage.novel.series.controller;
 
+import com.mywebpage.mywebpage.common.ErrorMsg;
+import com.mywebpage.mywebpage.common.MapStruct;
+import com.mywebpage.mywebpage.novel.episode.dto.EpisodeDto;
+import com.mywebpage.mywebpage.novel.episode.repository.EpisodeRepository;
 import com.mywebpage.mywebpage.novel.series.dto.SeriesDto;
+import com.mywebpage.mywebpage.novel.series.entity.Series;
+import com.mywebpage.mywebpage.novel.series.repository.SeriesRepository;
 import com.mywebpage.mywebpage.novel.series.service.SeriesService;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.log4j.Log4j2;
+import org.springframework.data.crossstore.ChangeSetPersister;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -17,6 +24,10 @@ import java.util.List;
 @RequiredArgsConstructor
 public class SeriesController {
     private final SeriesService seriesService;
+    private final SeriesRepository seriesRepository;
+    private final EpisodeRepository episodeRepository;
+    private final MapStruct mapStruct;
+    private final ErrorMsg errorMsg;
 
 //    전체조회(페이징)
 //    @GetMapping("/mwp")
@@ -54,9 +65,15 @@ public class SeriesController {
 
 //    상세조회
     @GetMapping("/series/{id}")
-    public String getSeries(@PathVariable Long id, Model model) {
-        SeriesDto series = seriesService.findById(id);
+    public String getSeries(@PathVariable Long id,
+                            @RequestParam(defaultValue = "desc") String sort,
+                            Model model) {
+//        시리즈 상세조회
+        SeriesDto series = seriesService.findById(id, sort);
+
         model.addAttribute("series", series);
+        model.addAttribute("sort", sort);
+
         return "views/novel/series";
     }
 

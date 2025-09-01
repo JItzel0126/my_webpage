@@ -24,7 +24,9 @@ import org.mapstruct.NullValuePropertyMappingStrategy;
 public interface MapStruct {
 
 //    Series
+
     Series toEntity(SeriesDto seriesDto);
+
     SeriesDto toDto(Series series);
 //    dirty 체킹
     void update(SeriesDto seriesDto, @MappingTarget Series series);

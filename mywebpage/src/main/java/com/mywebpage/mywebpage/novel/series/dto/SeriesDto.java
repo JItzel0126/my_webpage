@@ -1,8 +1,10 @@
 package com.mywebpage.mywebpage.novel.series.dto;
 
+import com.mywebpage.mywebpage.novel.episode.dto.EpisodeDto;
 import lombok.*;
 
 import java.time.LocalDateTime;
+import java.util.List;
 
 @Getter
 @Setter
@@ -23,4 +25,6 @@ public class SeriesDto {
     private LocalDateTime createdAt;
     private LocalDateTime updatedAt;
     private LocalDateTime lastEpisodeUpdatedAt;
+//  시리즈 상세에서 에피소드 리스트 불러오기
+    private List<EpisodeDto> episode;
 }

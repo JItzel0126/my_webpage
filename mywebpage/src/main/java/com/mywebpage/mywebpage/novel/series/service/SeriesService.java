@@ -2,6 +2,9 @@ package com.mywebpage.mywebpage.novel.series.service;
 
 import com.mywebpage.mywebpage.common.ErrorMsg;
 import com.mywebpage.mywebpage.common.MapStruct;
+import com.mywebpage.mywebpage.novel.episode.dto.EpisodeDto;
+import com.mywebpage.mywebpage.novel.episode.entity.Episode;
+import com.mywebpage.mywebpage.novel.episode.repository.EpisodeRepository;
 import com.mywebpage.mywebpage.novel.series.dto.SeriesDto;
 import com.mywebpage.mywebpage.novel.series.entity.Series;
 import com.mywebpage.mywebpage.novel.series.repository.SeriesRepository;
@@ -19,6 +22,7 @@ import java.util.stream.Collectors;
 @RequiredArgsConstructor
 public class SeriesService {
     private final SeriesRepository seriesRepository;
+    private final EpisodeRepository episodeRepository;
     private final MapStruct mapStruct;
     private final ErrorMsg errorMsg;
 
@@ -45,11 +49,30 @@ public class SeriesService {
     }
 
 //  상세조회
-    public SeriesDto findById(long id) {
+    public SeriesDto findById(Long id, String sort) {
+//    시리즈 조회
         Series series = seriesRepository.findById(id)
                 .orElseThrow(()->new RuntimeException(errorMsg.getMessage("errors.not.found")));
-        return mapStruct.toDto(series);
+//    에피소드 조회
+//    서비스 → 항상 기본 정렬(최신순)만 제공 → 단순
+        List<EpisodeDto> episodeDto;
+//        에피소드 정렬
+//        컨트롤러 → ?sort=asc / ?sort=desc 값 받아서 Asc/Desc 분기 처리
+        if ("asc".equals(sort)) {
+            episodeDto = episodeRepository.findBySeriesIdOrderByEpiNumberAsc(id)
+                    .stream().map(mapStruct::toDto).toList();
+        }
+        else {
+            episodeDto = episodeRepository.findBySeriesIdOrderByEpiNumberDesc(id)
+                    .stream().map(mapStruct::toDto).toList();
+        }
+
+//    함께 담아주기
+        SeriesDto seriesDto = mapStruct.toDto(series);
+        seriesDto.setEpisode(episodeDto);
+        return seriesDto;
     }
+
 
 //    추가
     public void save(SeriesDto dto) {
