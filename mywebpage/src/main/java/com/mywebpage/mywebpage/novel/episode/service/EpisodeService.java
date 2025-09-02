@@ -29,6 +29,14 @@ public class EpisodeService {
         return episodes.map(data->mapStruct.toDto(data));
     }
 
+//    상세조회
+    public EpisodeDto getById(long id) {
+        Episode episode = episodeRepository.findById(id)
+                .orElseThrow(()->new RuntimeException(errorMsg.getMessage("errors.not.found")));
+        return mapStruct.toDto(episode);
+    }
+
+
 //    추가
     public void save(EpisodeDto dto) {
         Episode episode = mapStruct.toEntity(dto);

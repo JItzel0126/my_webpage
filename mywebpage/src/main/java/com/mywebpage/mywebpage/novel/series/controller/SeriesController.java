@@ -11,6 +11,9 @@ import com.mywebpage.mywebpage.novel.series.service.SeriesService;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.log4j.Log4j2;
 import org.springframework.data.crossstore.ChangeSetPersister;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
+import org.springframework.data.web.PageableDefault;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -52,6 +55,21 @@ public class SeriesController {
         model.addAttribute("romance", romanceSeries);
         return "home";
     }
+
+//    서치바
+    @GetMapping("/search")
+    public String searchAll(@RequestParam(defaultValue = "") String keyword,
+                            @PageableDefault(size = 3) Pageable pageable,
+                            Model model) {
+
+        Page<SeriesDto> result = seriesService.searchAll(pageable, keyword);
+
+        model.addAttribute("result", result.getContent());
+        model.addAttribute("keyword", keyword);
+        model.addAttribute("page", result);
+        return "views/novel/search";
+    }
+
 
 //    Map 사용
 //    @GetMapping("/")

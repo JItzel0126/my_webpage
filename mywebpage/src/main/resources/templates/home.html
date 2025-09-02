@@ -16,23 +16,16 @@
 <!-- 본문 content -->
 <div layout:fragment="content">
     <div class="flex flex-col justify-center w-full px-2 mx-auto">
-        <form id="mainList" name="mainList" method="get">
+        <form th:action="@{/search}" method="get">
 
             <!-- 검색창 -->
-            <div
-                    class="mx-auto flex items-center justify-between border rounded-md p-2 m-4 w-full md:w-10/12 lg:w-full">
-                <input
-                        type="text"
+            <div class="mx-auto flex items-center justify-between border rounded-md p-2 m-4 w-full md:w-10/12 lg:w-full">
+                <input  type="text"
                         placeholder="작품 검색"
-                        id="keyword"
                         name="keyword"
-                        class="outline-none text-base w-full md:w-10/12 lg:w-full"
-                />
-                <button
-                        type="submit"
-                        class="border-2 w-2/12 h-1/2 py-1 rounded-lg text-slate-200 bg-indigo-900 hover:bg-indigo-950"
-                >
-                    검색
+                        class="outline-none text-base w-full md:w-10/12 lg:w-full"/>
+                <button type="submit"
+                        class="border-2 w-2/12 h-1/2 py-1 rounded-lg text-slate-200 bg-indigo-900 hover:bg-indigo-950">검색
                 </button>
             </div>
 
@@ -48,11 +41,12 @@
                             <!-- 반복 -->
                             <div class="swiper-slide rounded-md"
                                  th:each="f : ${fantasy}">
+                                <a th:href="@{'/series/'+${f.id}}">
                                 <div class="card">
-                                    <img th:src="@{/images/cover1.jpg}" alt="웹소설1" />
+                                    <img th:src="${f.fileUrl}" alt="웹소설1" />
                                     <p th:text="${f.title}"></p>
                                     <p th:text="${f.author}"></p>
-                                </div>
+                                </div></a>
                             </div>
 
                         </div>
@@ -71,11 +65,12 @@
                             <!-- 반복 -->
                             <div class="swiper-slide rounded-md"
                                  th:each="r : ${romance}">
+                                <a th:href="@{'/series/'+${r.id}}">
                                 <div class="card">
-                                    <img th:src="@{/images/cover1.jpg}" alt="웹소설1" />
+                                    <img th:src="${r.fileUrl}" alt="웹소설1" />
                                     <p th:text="${r.title}"></p>
                                     <p th:text="${r.author}"></p>
-                                </div>
+                                </div></a>
                             </div>
 
                         </div>
@@ -94,11 +89,12 @@
                             <!-- 반복 -->
                             <div class="swiper-slide rounded-md"
                                  th:each="a : ${all}">
+                                <a th:href="@{'/series/'+${a.id}}">
                                 <div class="card">
-                                    <img th:src="@{/images/cover1.jpg}" alt="웹소설1" />
+                                    <img th:src="${a.fileUrl}" alt="웹소설1" />
                                     <p th:text="${a.title}"></p>
                                     <p th:text="${a.author}"></p>
-                                </div>
+                                </div></a>
                             </div>
 
                         </div>

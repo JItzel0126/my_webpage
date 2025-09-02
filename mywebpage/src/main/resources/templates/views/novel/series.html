@@ -19,7 +19,7 @@
 
         <section class="flex gap-6 p-4 border rounded-lg shadow-sm">
             <div class="w-32 h-44 overflow-hidden rounded-md border">
-                <img src="/images/cover8.jpg" alt="책 표지"
+                <img th:src="${series.fileUrl}" alt="책 표지"
                      class="w-full h-full object-cover"/>
             </div>
             <div class="flex-1">
@@ -55,11 +55,13 @@
             </div>
 
             <div>
-                <ul class="divide-y border rounded shadow-sm" id="episodeList">
-                        <li th:each="ep : ${series.episode}" class="p-3 hover:bg-gray-50 cursor-pointer flex flex-row justify-between">
+                <ul th:each="ep : ${series.episode}"  class="divide-y border rounded shadow-sm" id="episodeList">
+                    <a th:href="@{'/episode/'+${ep.id}}">
+                        <li class="p-3 hover:bg-gray-50 cursor-pointer flex flex-row justify-between">
                             <span th:text="${ep.epiNumber} +'화 - ' + ${ep.epiTitle}"></span>
                             <span class="ml-2 text-sm text-gray-500" th:text="${ep.price} + '원'"></span>
                         </li>
+                    </a>
                 </ul>
             </div>
         </section>

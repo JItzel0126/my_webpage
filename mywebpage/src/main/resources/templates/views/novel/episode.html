@@ -1,0 +1,94 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      layout:decorate="~{common/layout}">
+
+<!-- 페이지 전용 head 추가 -->
+<th:block layout:fragment="pageHead">
+    <title>에피소드 | Papaya Novel</title>
+    <!-- 부트스트랩 -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/css/bootstrap.min.css"
+          rel="stylesheet"
+          integrity="sha384-rbsA2VBKQhggwzxH7pPCaAqO46MgnOM80zW1RWuH61DGLwZJEdK2Kadq2F9CUG65"
+          crossorigin="anonymous">
+</th:block>
+
+
+<div layout:fragment="content">
+    <div class="mt-2 mx-auto w-full sm:w-11/12">
+
+
+            <section class="min-h-[85vh] grid grid-rows-[auto_2fr_auto_auto] gap-2 rounded border-2 border-slate-100 bg-white shadow-sm px-1 pt-2">
+
+                <!-- 시리즈 제목 -->
+                <h1 class="text-2xl font-bold mb-2" th:text="${series.title}">작품 제목</h1>
+
+                <!-- 에피소드 정보 -->
+                <div class="flex justify-between items-center border-b pb-2 mb-4">
+                    <div>
+                        <h2 class="text-xl font-semibold" th:text="${episode.epiNumber} + '화 - ' + ${episode.epiTitle}">
+                            1화 - 시작
+                        </h2>
+                        <p class="text-sm text-gray-500" th:text="'가격: ' + ${episode.price} + '원'"></p>
+                    </div>
+                    <span class="text-sm text-gray-400" th:text="${#temporals.format(episode.createdAt, 'yyyy-MM-dd')}">
+            2025-09-01
+        </span>
+                </div>
+
+                <!-- 본문 -->
+                <article class="prose prose-sm max-w-none leading-relaxed text-gray-800 whitespace-pre-line"
+                         th:text="${episode.content}">
+                    에피소드 본문이 출력됩니다...
+                </article>
+
+                <!-- 이전/다음 버튼 -->
+                <div class="flex justify-between mt-6">
+                    <a th:if="${prev != null}"
+                       th:href="@{/episode/{id}(id=${prev.id})}"
+                       class="px-4 py-2 border rounded hover:bg-gray-100">
+                        ← 이전화
+                    </a>
+                    <a th:if="${next != null}"
+                       th:href="@{/episode/{id}(id=${next.id})}"
+                       class="px-4 py-2 border rounded hover:bg-gray-100 ml-auto">
+                        다음화 →
+                    </a>
+                </div>
+
+                <!-- 아코디언: 전체 에피소드 리스트 -->
+                <div class="mt-8 border rounded-lg">
+                    <button type="button"
+                            class="w-full text-left px-4 py-2 bg-gray-100 hover:bg-gray-200 font-semibold"
+                            onclick="document.getElementById('episodeAccordion').classList.toggle('hidden')">
+                        📖 전체 회차 목록
+                    </button>
+                    <ul id="episodeAccordion" class="divide-y hidden">
+                        <li th:each="ep : ${series.episode}"
+                            th:classappend="${ep.id == episode.id} ? 'bg-indigo-50 font-bold' : ''"
+                            class="flex justify-between items-center px-4 py-2 hover:bg-gray-50">
+                            <a th:href="@{/episode/{id}(id=${ep.id})}"
+                               th:text="${ep.epiNumber} + '화 - ' + ${ep.epiTitle}"
+                               class="flex-1"></a>
+                            <span class="text-sm text-gray-500 shrink-0" th:text="${ep.price} + '원'">무료</span>
+                        </li>
+                    </ul>
+                </div>
+
+            </section>
+
+
+    </div>
+</div>
+
+<!-- boardDetail.html -->
+<th:block layout:fragment="extraScript">
+    <!-- 부트스트랩 -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/js/bootstrap.bundle.min.js"
+            integrity="sha384-kenU1KFdBIe4zVF0s0G1M5b4hcpxyD9F7jL+jjXkk+Q2h455rYXK/7HAuoJl+0I4"
+            crossorigin="anonymous"></script>
+
+</th:block>
+
+
+</html>

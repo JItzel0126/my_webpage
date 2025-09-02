@@ -60,64 +60,64 @@ ALTER TABLE freeboard ALTER COLUMN bno RESTART WITH 21;
 -- SERIES 샘플 데이터 (20개)
 -- =======================
 insert into series (id, title, author, publisher, file_name, file_url, description, genre, created_at, updated_at, last_episode_updated_at)
-values (1, '좀비 아포칼립스', '김작가', '네이버', 'zombie.jpg', '/img/zombie.jpg', '좀비로 가득 찬 세상에서의 생존기', '판타지', '2025-03-05 10:12:00', '2025-03-05 10:12:00', '2025-03-15 09:30:00');
+values (1, '좀비 아포칼립스', '김작가', '네이버', 'zombie.jpg', '/images/cover1.jpg', '좀비로 가득 찬 세상에서의 생존기', '판타지', '2025-03-05 10:12:00', '2025-03-05 10:12:00', '2025-03-15 09:30:00');
 
 insert into series (id, title, author, publisher, file_name, file_url, description, genre, created_at, updated_at, last_episode_updated_at)
-values (2, '마법학교 일기', '이작가', '카카오', 'magic.jpg', '/img/magic.jpg', '마법학교에서 펼쳐지는 성장 판타지', '판타지', '2025-03-22 12:00:00', '2025-03-22 12:00:00', '2025-04-02 08:45:00');
+values (2, '마법학교 일기', '이작가', '카카오', 'magic.jpg', '/images/cover2.jpg', '마법학교에서 펼쳐지는 성장 판타지', '판타지', '2025-03-22 12:00:00', '2025-03-22 12:00:00', '2025-04-02 08:45:00');
 
 insert into series (id, title, author, publisher, file_name, file_url, description, genre, created_at, updated_at, last_episode_updated_at)
-values (3, '헌터의 회귀', '박작가', '레진', 'hunter.jpg', '/img/hunter.jpg', '죽었던 헌터가 회귀하여 역사를 바꾼다', '판타지', '2025-04-01 09:40:00', '2025-04-01 09:40:00', '2025-04-15 11:20:00');
+values (3, '헌터의 회귀', '박작가', '레진', 'hunter.jpg', '/images/cover3.jpg', '죽었던 헌터가 회귀하여 역사를 바꾼다', '판타지', '2025-04-01 09:40:00', '2025-04-01 09:40:00', '2025-04-15 11:20:00');
 
 insert into series (id, title, author, publisher, file_name, file_url, description, genre, created_at, updated_at, last_episode_updated_at)
-values (4, '네온시티', '최작가', '문피아', 'neon.jpg', '/img/neon.jpg', '사이버펑크 도시에서 벌어지는 사건들', '로맨스', '2025-04-10 14:30:00', '2025-04-10 14:30:00', '2025-05-10 21:10:00');
+values (4, '네온시티', '최작가', '문피아', 'neon.jpg', '/images/cover4.jpg', '사이버펑크 도시에서 벌어지는 사건들', '로맨스', '2025-04-10 14:30:00', '2025-04-10 14:30:00', '2025-05-10 21:10:00');
 
 insert into series (id, title, author, publisher, file_name, file_url, description, genre, created_at, updated_at, last_episode_updated_at)
-values (5, '귀환자', '정작가', '네이버', 'returnee.jpg', '/img/returnee.jpg', '10년 만에 돌아온 주인공의 이야기', '판타지', '2025-04-18 16:45:00', '2025-04-18 16:45:00', '2025-05-25 15:00:00');
+values (5, '귀환자', '정작가', '네이버', 'returnee.jpg', '/images/cover5.jpg', '10년 만에 돌아온 주인공의 이야기', '판타지', '2025-04-18 16:45:00', '2025-04-18 16:45:00', '2025-05-25 15:00:00');
 
 insert into series (id, title, author, publisher, file_name, file_url, description, genre, created_at, updated_at, last_episode_updated_at)
-values (6, '드래곤 슬레이어', '윤작가', '카카오', 'dragon.jpg', '/img/dragon.jpg', '드래곤을 쓰러뜨리기 위한 여정', '판타지', '2025-04-25 08:20:00', '2025-04-25 08:20:00', '2025-06-01 13:40:00');
+values (6, '드래곤 슬레이어', '윤작가', '카카오', 'dragon.jpg', '/images/cover6.jpg', '드래곤을 쓰러뜨리기 위한 여정', '판타지', '2025-04-25 08:20:00', '2025-04-25 08:20:00', '2025-06-01 13:40:00');
 
 insert into series (id, title, author, publisher, file_name, file_url, description, genre, created_at, updated_at, last_episode_updated_at)
-values (7, '로그인 판타지', '한작가', '레진', 'login.jpg', '/img/login.jpg', 'VRMMORPG에 갇힌 플레이어들의 이야기', '로맨스', '2025-05-02 11:00:00', '2025-05-02 11:00:00', '2025-06-12 09:10:00');
+values (7, '로그인 판타지', '한작가', '레진', 'login.jpg', '/images/cover7.jpg', 'VRMMORPG에 갇힌 플레이어들의 이야기', '로맨스', '2025-05-02 11:00:00', '2025-05-02 11:00:00', '2025-06-12 09:10:00');
 
 insert into series (id, title, author, publisher, file_name, file_url, description, genre, created_at, updated_at, last_episode_updated_at)
-values (8, '전생의 기억', '오작가', '문피아', 'isekai.jpg', '/img/isekai.jpg', '전생의 기억을 가진 주인공의 이세계 모험', '판타지', '2025-05-08 13:25:00', '2025-05-08 13:25:00', '2025-06-20 18:40:00');
+values (8, '전생의 기억', '오작가', '문피아', 'isekai.jpg', '/images/cover8.jpg', '전생의 기억을 가진 주인공의 이세계 모험', '판타지', '2025-05-08 13:25:00', '2025-05-08 13:25:00', '2025-06-20 18:40:00');
 
 insert into series (id, title, author, publisher, file_name, file_url, description, genre, created_at, updated_at, last_episode_updated_at)
-values (9, '검술의 길', '류작가', '네이버', 'sword.jpg', '/img/sword.jpg', '한 소년이 최고의 검사로 성장하는 이야기', '판타지', '2025-05-14 15:40:00', '2025-05-14 15:40:00', '2025-07-01 10:25:00');
+values (9, '검술의 길', '류작가', '네이버', 'sword.jpg', '/images/cover9.jpg', '한 소년이 최고의 검사로 성장하는 이야기', '판타지', '2025-05-14 15:40:00', '2025-05-14 15:40:00', '2025-07-01 10:25:00');
 
 insert into series (id, title, author, publisher, file_name, file_url, description, genre, created_at, updated_at, last_episode_updated_at)
-values (10, '마녀의 계약', '조작가', '카카오', 'witch.jpg', '/img/witch.jpg', '마녀와 맺은 운명적인 계약', '로맨스', '2025-05-20 09:50:00', '2025-05-20 09:50:00', '2025-07-08 22:30:00');
+values (10, '마녀의 계약', '조작가', '카카오', 'witch.jpg', '/images/cover10.jpg', '마녀와 맺은 운명적인 계약', '로맨스', '2025-05-20 09:50:00', '2025-05-20 09:50:00', '2025-07-08 22:30:00');
 
 insert into series (id, title, author, publisher, file_name, file_url, description, genre, created_at, updated_at, last_episode_updated_at)
-values (11, '우주 개척자', '임작가', '레진', 'space.jpg', '/img/space.jpg', '인류의 미래를 건 우주 개척 이야기', '로맨스', '2025-05-28 11:15:00', '2025-05-28 11:15:00', '2025-07-18 12:50:00');
+values (11, '우주 개척자', '임작가', '레진', 'space.jpg', '/images/cover11.jpg', '인류의 미래를 건 우주 개척 이야기', '로맨스', '2025-05-28 11:15:00', '2025-05-28 11:15:00', '2025-07-18 12:50:00');
 
 insert into series (id, title, author, publisher, file_name, file_url, description, genre, created_at, updated_at, last_episode_updated_at)
-values (12, 'AI의 반란', '심작가', '문피아', 'ai.jpg', '/img/ai.jpg', 'AI가 인간을 위협하는 세상', '판타지', '2025-06-03 14:30:00', '2025-06-03 14:30:00', '2025-07-30 16:15:00');
+values (12, 'AI의 반란', '심작가', '문피아', 'ai.jpg', '/images/cover12.jpg', 'AI가 인간을 위협하는 세상', '판타지', '2025-06-03 14:30:00', '2025-06-03 14:30:00', '2025-07-30 16:15:00');
 
 insert into series (id, title, author, publisher, file_name, file_url, description, genre, created_at, updated_at, last_episode_updated_at)
-values (13, '시간 여행자', '하작가', '네이버', 'time.jpg', '/img/time.jpg', '시간을 넘나드는 모험', '로맨스', '2025-06-08 09:05:00', '2025-06-08 09:05:00', '2025-08-02 09:40:00');
+values (13, '시간 여행자', '하작가', '네이버', 'time.jpg', '/images/cover13.jpg', '시간을 넘나드는 모험', '로맨스', '2025-06-08 09:05:00', '2025-06-08 09:05:00', '2025-08-02 09:40:00');
 
 insert into series (id, title, author, publisher, file_name, file_url, description, genre, created_at, updated_at, last_episode_updated_at)
-values (14, '검과 마법', '곽작가', '카카오', 'swordmagic.jpg', '/img/swordmagic.jpg', '검과 마법이 공존하는 세계', '판타지', '2025-06-15 08:40:00', '2025-06-15 08:40:00', '2025-08-10 14:20:00');
+values (14, '검과 마법', '곽작가', '카카오', 'swordmagic.jpg', '/images/cover14.jpg', '검과 마법이 공존하는 세계', '판타지', '2025-06-15 08:40:00', '2025-06-15 08:40:00', '2025-08-10 14:20:00');
 
 insert into series (id, title, author, publisher, file_name, file_url, description, genre, created_at, updated_at, last_episode_updated_at)
-values (15, '왕좌의 그림자', '배작가', '레진', 'throne.jpg', '/img/throne.jpg', '왕위 계승을 둘러싼 치열한 싸움', '판타지', '2025-06-20 13:15:00', '2025-06-20 13:15:00', '2025-08-15 11:35:00');
+values (15, '왕좌의 그림자', '배작가', '레진', 'throne.jpg', '/images/cover15.jpg', '왕위 계승을 둘러싼 치열한 싸움', '판타지', '2025-06-20 13:15:00', '2025-06-20 13:15:00', '2025-08-15 11:35:00');
 
 insert into series (id, title, author, publisher, file_name, file_url, description, genre, created_at, updated_at, last_episode_updated_at)
-values (16, '좀비와의 동거', '노작가', '문피아', 'zombielife.jpg', '/img/zombielife.jpg', '좀비와 함께 살아가는 일상물', '로맨스', '2025-06-25 11:40:00', '2025-06-25 11:40:00', '2025-08-20 20:45:00');
+values (16, '좀비와의 동거', '노작가', '문피아', 'zombielife.jpg', '/images/cover16.jpg', '좀비와 함께 살아가는 일상물', '로맨스', '2025-06-25 11:40:00', '2025-06-25 11:40:00', '2025-08-20 20:45:00');
 
 insert into series (id, title, author, publisher, file_name, file_url, description, genre, created_at, updated_at, last_episode_updated_at)
-values (17, '마법 현대사회', '신작가', '네이버', 'modernmagic.jpg', '/img/modernmagic.jpg', '현대 사회 속에 마법이 존재한다면', '판타지', '2025-07-01 09:25:00', '2025-07-01 09:25:00', '2025-08-25 17:30:00');
+values (17, '마법 현대사회', '신작가', '네이버', 'modernmagic.jpg', '/images/cover17.jpg', '현대 사회 속에 마법이 존재한다면', '판타지', '2025-07-01 09:25:00', '2025-07-01 09:25:00', '2025-08-25 17:30:00');
 
 insert into series (id, title, author, publisher, file_name, file_url, description, genre, created_at, updated_at, last_episode_updated_at)
-values (18, '카오스', '강작가', '카카오', 'chaos.jpg', '/img/chaos.jpg', '질서가 무너지고 혼돈이 찾아온다', '로맨스', '2025-07-05 12:10:00', '2025-07-05 12:10:00', '2025-08-30 22:10:00');
+values (18, '카오스', '강작가', '카카오', 'chaos.jpg', '/images/cover18.jpg', '질서가 무너지고 혼돈이 찾아온다', '로맨스', '2025-07-05 12:10:00', '2025-07-05 12:10:00', '2025-08-30 22:10:00');
 
 insert into series (id, title, author, publisher, file_name, file_url, description, genre, created_at, updated_at, last_episode_updated_at)
-values (19, '성검의 주인', '우작가', '레진', 'holy.jpg', '/img/holy.jpg', '성검을 둘러싼 모험과 음모', '판타지', '2025-07-10 14:45:00', '2025-07-10 14:45:00', '2025-09-05 08:50:00');
+values (19, '성검의 주인', '우작가', '레진', 'holy.jpg', '/images/cover19.jpg', '성검을 둘러싼 모험과 음모', '판타지', '2025-07-10 14:45:00', '2025-07-10 14:45:00', '2025-09-05 08:50:00');
 
 insert into series (id, title, author, publisher, file_name, file_url, description, genre, created_at, updated_at, last_episode_updated_at)
-values (20, '로맨틱 하늘', '장작가', '문피아', 'romance.jpg', '/img/romance.jpg', '하늘을 나는 도시에서의 로맨스', '로맨스', '2025-07-15 08:55:00', '2025-07-15 08:55:00', '2025-09-10 19:25:00');
+values (20, '로맨틱 하늘', '장작가', '문피아', 'romance.jpg', '/images/cover20.jpg', '하늘을 나는 도시에서의 로맨스', '로맨스', '2025-07-15 08:55:00', '2025-07-15 08:55:00', '2025-09-10 19:25:00');
 
 
 

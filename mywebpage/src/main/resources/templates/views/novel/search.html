@@ -1,0 +1,123 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      layout:decorate="~{common/layout}">
+
+<!-- 페이지 전용 head 추가 -->
+<th:block layout:fragment="pageHead">
+  <title>검색 | Papaya Novel</title>
+  <!-- 부트스트랩 -->
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/css/bootstrap.min.css"
+        rel="stylesheet"
+        integrity="sha384-rbsA2VBKQhggwzxH7pPCaAqO46MgnOM80zW1RWuH61DGLwZJEdK2Kadq2F9CUG65"
+        crossorigin="anonymous">
+</th:block>
+
+
+<!-- 본문 content -->
+<div layout:fragment="content">
+  <div class="flex flex-col justify-center w-full px-2 mx-auto">
+    <form th:action="@{/search}" method="get">
+
+      <!-- 검색창 -->
+      <div class="mx-auto flex items-center justify-between border rounded-md p-2 m-4 w-full md:w-10/12 lg:w-full">
+        <input type="text"
+               placeholder="작품 검색"
+               name="keyword"
+                class="outline-none text-base w-full md:w-10/12 lg:w-full"/>
+        <button type="submit"
+                class="border-2 w-2/12 h-1/2 py-1 rounded-lg text-slate-200 bg-indigo-900 hover:bg-indigo-950">
+          검색
+        </button>
+      </div>
+
+      <!-- 페이지네이션 -->
+      <nav class="mx-auto flex items-center justify-center border-none rounded-md p-2 m-4 w-full md:w-10/12">
+
+        <ul class="pagination flex flex-row items-center justify-center gap-1">
+          <!-- 처음 -->
+          <li th:classappend="${page.first} ? 'disabled'">
+            <a class="page-link
+                                  rounded-l-lg border border-gray-300 text-slate-400 hover:text-black hover:font-bold hover:bg-gray-100"
+               th:href="@{/search(keyword=${keyword}, option=${option}, page=${page.first})}">처음</a>
+          </li>
+          <!-- 이전 -->
+          <li th:classappend="${page.first} ? 'disabled'">
+            <a class="page-link border border-gray-300 text-slate-400 hover:text-black hover:font-bold hover:bg-gray-100"
+               th:href="@{/search(keyword=${keyword}, option=${option}, page=${page.number-1})}">이전</a>
+          </li>
+
+          <!-- 페이지 번호 -->
+          <li th:each="i : ${
+                                (page.totalPages <= 3)
+                                    ? #numbers.sequence(0, page.totalPages - 1)
+                                    : #numbers.sequence(
+                                    (page.number == 0) ? 0
+                                    : (page.number == page.totalPages - 1) ? page.totalPages - 3
+                                    : page.number - 1,
+                                    (page.number == 0) ? 2
+                                    : (page.number == page.totalPages - 1) ? page.totalPages - 1
+                                    : page.number + 1)
+                                }"
+              th:classappend="${page.number == i} ? 'active'">
+            <a class="page-link border border-gray-300 text-slate-400 hover:font-bold hover:text-black"
+               th:text="${i+1}"
+               th:href="@{/search(keyword=${keyword}, option=${option}, page=${i})}">
+            </a>
+          </li>
+
+          <!-- 다음 -->
+          <li th:classappend="${page.last} ? 'disabled'">
+            <a class="page-link border border-gray-300 text-slate-400 hover:text-black hover:font-bold hover:bg-gray-100"
+               th:href="@{/search(keyword=${keyword}, option=${option}, page=${page.number+1})}">다음</a>
+          </li>
+          <!-- 끝 -->
+          <li th:classappend="${page.last} ? 'disabled'">
+            <a class="page-link rounded-r-lg border border-gray-300 text-slate-400 hover:text-black hover:font-bold hover:bg-gray-100"
+               th:href="@{/search(keyword=${keyword}, option=${option}, page=${page.totalPages-1})}">끝</a>
+          </li>
+
+        </ul>
+
+      </nav>
+
+      <!-- 리스트 -->
+      <section class="contents-box space-y-4">
+
+        <div th:each="r : ${result}"
+             class="flex items-center gap-4 p-3 border rounded-lg shadow-sm hover:bg-gray-50">
+
+          <!-- 표지 이미지 -->
+          <div class="w-16 h-20 flex-shrink-0 overflow-hidden rounded border">
+            <img th:src="${r.fileUrl}" alt="표지"
+                 class="w-full h-full object-cover">
+          </div>
+
+          <!-- 제목 (flex-1) -->
+          <div class="flex-1">
+            <a th:href="@{'/series/' + ${r.id}}"
+               class="text-lg font-semibold text-gray-800 hover:text-indigo-600 line-clamp-1">
+              <span th:text="${r.title}"></span>
+            </a>
+          </div>
+
+          <!-- 작가명 (shrink-0) -->
+          <div class="text-sm text-gray-600 flex-shrink-0">
+            <span th:text="${r.author}"></span>
+          </div>
+
+        </div>
+
+      </section>
+    </form>
+  </div>
+</div>
+
+<th:block layout:fragment="extraScript">
+  <!-- 부트스트랩 -->
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/js/bootstrap.bundle.min.js"
+          integrity="sha384-kenU1KFdBIe4zVF0s0G1M5b4hcpxyD9F7jL+jjXkk+Q2h455rYXK/7HAuoJl+0I4"
+          crossorigin="anonymous"></script>
+</th:block>
+
+</html>
