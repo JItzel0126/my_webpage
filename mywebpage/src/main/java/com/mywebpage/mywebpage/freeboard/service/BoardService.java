@@ -72,13 +72,17 @@ public class BoardService {
     }
 
 //    추가
-    public void save(BoardDto boardDto) {
+    public void save(BoardDto boardDto, String email) {
         Board board = mapStruct.toEntity(boardDto);
 
+        User loginUser = userRepository.findByEmail(email)
+                .orElseThrow(()->new RuntimeException(errorMsg.getMessage("errors.not.found")));
+        board.setWriter(loginUser);
+
         // 임시 작성자 고정(로그인 기능 작성 전)
-        User dummy = userRepository.findById(1L)
-                .orElseThrow(() -> new RuntimeException(errorMsg.getMessage("errors.not.found")));
-        board.setWriter(dummy);
+//        User dummy = userRepository.findById(1L)
+//                .orElseThrow(() -> new RuntimeException(errorMsg.getMessage("errors.not.found")));
+//        board.setWriter(dummy);
 
         boardRepository.save(board);
     }

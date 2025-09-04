@@ -10,7 +10,7 @@ INSERT INTO users (uno, name, password, email, role, created_at, updated_at) VAL
 INSERT INTO users (uno, name, password, email, role, created_at, updated_at) VALUES(8,'guest01', '1234', 'guest01@example.com', 'ROLE_USER', '2025-04-21 20:10:00', '2025-04-21 20:10:00');
 INSERT INTO users (uno, name, password, email, role, created_at, updated_at) VALUES(9,'admin', 'admin1234', 'admin@example.com', 'ROLE_ADMIN', '2025-05-05 13:25:00', '2025-05-05 13:25:00');
 INSERT INTO users (uno, name, password, email, role, created_at, updated_at) VALUES(10,'superuser', 'super1234', 'super@example.com', 'ROLE_ADMIN', '2025-06-15 17:55:00', '2025-06-15 17:55:00');
-
+ALTER TABLE users ALTER COLUMN uno RESTART WITH 11;
 
 -- 게시글 더미 데이터
 

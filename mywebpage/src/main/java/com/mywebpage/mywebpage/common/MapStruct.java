@@ -11,6 +11,8 @@ import com.mywebpage.mywebpage.novel.episode.entity.Episode;
 import com.mywebpage.mywebpage.novel.series.dto.SeriesDto;
 import com.mywebpage.mywebpage.novel.series.entity.Series;
 import com.mywebpage.mywebpage.user.dto.UserDto;
+import com.mywebpage.mywebpage.user.dto.UserRequestDto;
+import com.mywebpage.mywebpage.user.dto.UserResponseDto;
 import com.mywebpage.mywebpage.user.entity.User;
 import org.mapstruct.Mapper;
 import org.mapstruct.Mapping;
@@ -24,9 +26,7 @@ import org.mapstruct.NullValuePropertyMappingStrategy;
 public interface MapStruct {
 
 //    Series
-
     Series toEntity(SeriesDto seriesDto);
-
     SeriesDto toDto(Series series);
 //    dirty 체킹
     void update(SeriesDto seriesDto, @MappingTarget Series series);
@@ -40,10 +40,15 @@ public interface MapStruct {
     void update(EpisodeDto episodeDto, @MappingTarget Episode episode);
 
 
-//    user
-
+//    user 내부 db용
     User toEntity(UserDto userDto);
     UserDto toDto(User user);
+//    회원 가입용
+    User toRequestEntity(UserRequestDto requestDto);
+    UserRequestDto toRequestDto(User user);
+//    화면 출력용
+    User toResponseEntity(UserResponseDto responseDto);
+    UserResponseDto toResponseDto(User user);
 
 //    board
     @Mapping(source = "writer", target = "writer.name")

@@ -7,12 +7,14 @@ import com.mywebpage.mywebpage.common.MapStruct;
 import com.mywebpage.mywebpage.freeboard.dto.BoardDto;
 import com.mywebpage.mywebpage.freeboard.entity.Board;
 import com.mywebpage.mywebpage.freeboard.service.BoardService;
+import com.mywebpage.mywebpage.user.dto.SecurityUserDto;
 import com.mywebpage.mywebpage.user.entity.User;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.log4j.Log4j2;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.web.PageableDefault;
+import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
@@ -68,8 +70,9 @@ public class BoardController {
 
 //    추가
     @PostMapping("/boards")
-    public String boardPost(@ModelAttribute BoardDto boardDto) {
-        boardService.save(boardDto);
+    public String boardPost(@ModelAttribute BoardDto boardDto,
+                            @AuthenticationPrincipal SecurityUserDto loginUser) {
+        boardService.save(boardDto, loginUser.getUsername());
         return "redirect:/boards";
     }
 
@@ -100,8 +103,9 @@ public class BoardController {
     // 댓글 등록
     @PostMapping("/boards/{bno}/comments")
     public String addComment(@PathVariable Long bno,
-                             @ModelAttribute BcommentDto commentDto) {
-        bcommentService.saveBcomment(commentDto, bno);
+                             @ModelAttribute BcommentDto commentDto,
+                             @AuthenticationPrincipal SecurityUserDto loginUser) {
+        bcommentService.saveBcomment(commentDto, bno, loginUser.getUsername());
         return "redirect:/boards/" + bno;
     }
 

@@ -41,15 +41,15 @@ public class BcommentService {
     }
 
 //    댓글 쓰기
-    public void saveBcomment(BcommentDto bcommentDto, Long bno) {
+    public void saveBcomment(BcommentDto bcommentDto, Long bno, String email) {
         Bcomment bcomment = mapStruct.toEntity(bcommentDto);
         bcomment.setBoard(boardRepository.findById(bno)
                 .orElseThrow(()->new RuntimeException(errorMsg.getMessage("errors.not.found"))));
 
         // TODO: 로그인 붙이기 전까지 임시 유저 세팅
-        User dummy = userRepository.findById(1L)
+        User loginUser = userRepository.findByEmail(email)
                 .orElseThrow(() -> new RuntimeException(errorMsg.getMessage("errors.not.found")));
-        bcomment.setWriter(dummy);
+        bcomment.setWriter(loginUser);
 
 //        parent 직접 조회해서 세팅
         if(bcommentDto.getParentBcno()!=null) {

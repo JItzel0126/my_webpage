@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      layout:decorate="~{common/layout}">
+
+<!-- 페이지 전용 head 추가 -->
+<th:block layout:fragment="pageHead">
+    <title>Errors</title>
+</th:block>
+
+
+<!-- 본문 content -->
+<div layout:fragment="content">
+    <div class="flex flex-col justify-center items-center w-full px-2 mx-auto">
+        <h1>⚠️ 에러 발생</h1>
+        <p th:text="${errors}"></p>
+        <a th:href="@{/}">홈으로 돌아가기</a>
+    </div>
+</div>
+
+<th:block layout:fragment="extraScript">
+
+</th:block>
+
+</html>
