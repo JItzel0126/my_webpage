@@ -53,7 +53,7 @@ public class NcommentService {
                         .orElseThrow(()->new RuntimeException(errorMsg.getMessage("errors.not.found")));
         comment.setSeries(series);
 //        user 세팅
-        User user = userRepository.findById(1L)
+        User user = userRepository.findByEmail(dto.getWriter())
                         .orElseThrow(()->new RuntimeException(errorMsg.getMessage("errors.not.found")));
         comment.setWriter(user);
 

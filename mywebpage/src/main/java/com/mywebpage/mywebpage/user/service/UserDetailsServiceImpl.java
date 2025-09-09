@@ -35,6 +35,11 @@ public class UserDetailsServiceImpl implements UserDetailsService {
         User users = userRepository.findByEmail(username)
                 .orElseThrow(()->new RuntimeException(errorMsg.getMessage("errors.register")));
 
+        // 🔎 디버그
+        String enc = users.getPassword();
+        System.out.println("[DEBUG] pwHead=" + (enc == null ? "null" : enc.substring(0, Math.min(7, enc.length()))));
+        System.out.println("[DEBUG] pwLen=" + (enc == null ? -1 : enc.length()));
+
 //  TODO: 2) 권한 부여
 //   없으면 검증 객체에 정보 넣기
         GrantedAuthority authority = new SimpleGrantedAuthority(users.getRole());

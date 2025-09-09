@@ -29,7 +29,7 @@
                         <div class="flex flex-col gap-1">
                             <label>writer</label>
                             <!-- TODO: "${} ? 'disabled'": 값이 있으면 값을 넣고 없으면 null처리 -->
-                            <input class="shrink-0 border px-2 py-1 rounded" th:text="${board.writer} ? 'disabled'" />
+                            <input class="shrink-0 border px-2 py-1 rounded" readonly th:value="${board.writer}" />
                         </div>
                     </div>
 

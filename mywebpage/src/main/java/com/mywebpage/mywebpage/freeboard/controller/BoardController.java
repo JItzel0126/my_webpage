@@ -63,7 +63,9 @@ public class BoardController {
 
 //    추가 페이지 열기
     @GetMapping("/boards/new")
-    public String boardPostView(Model model, BoardDto boardDto) {
+    public String boardPostView(Model model, BoardDto boardDto,
+                                @AuthenticationPrincipal SecurityUserDto loginUser) {
+        boardDto.setWriter(loginUser.getName());
         model.addAttribute("board", boardDto);
         return "views/freeboard/boardNew";
     }
@@ -72,6 +74,7 @@ public class BoardController {
     @PostMapping("/boards")
     public String boardPost(@ModelAttribute BoardDto boardDto,
                             @AuthenticationPrincipal SecurityUserDto loginUser) {
+
         boardService.save(boardDto, loginUser.getUsername());
         return "redirect:/boards";
     }

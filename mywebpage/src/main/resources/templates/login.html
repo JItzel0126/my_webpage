@@ -25,6 +25,7 @@
     </div>
 
     <form th:action="@{/processLogin}" method="post" class="space-y-4">
+      <input type="hidden" th:name="${_csrf.parameterName}" th:value="${_csrf.token}">
       <div>
         <label for="email" class="block text-gray-600 mb-1">이메일</label>
         <input type="text" id="email" name="email"
