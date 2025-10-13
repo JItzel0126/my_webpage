@@ -46,9 +46,10 @@ public class SecurityConfig {
     public SecurityFilterChain filterChain(HttpSecurity http) throws Exception {
         http.authorizeHttpRequests(auth-> auth
                 .dispatcherTypeMatchers(DispatcherType.FORWARD).permitAll()
-                .requestMatchers("/login","/signup","/","/errors").permitAll() // 로그인 회원가입 페이지는 누구나 접근
+                        // 로그인 회원가입 페이지 시리즈 상세, 서치 페이지까지 누구나 접근
+                .requestMatchers("/login","/signup","/","/errors","/series/**","/search").permitAll()
                 .requestMatchers("/css/**", "/images/**", "/js/**").permitAll() // 정적 리소스 파일 누구나 접근
-                .requestMatchers("/h2-console/**").permitAll()   // ✅ H2 콘솔 허용
+                .requestMatchers("/h2-console/**").permitAll()   // H2 콘솔 허용
                 .requestMatchers("/admin/**").hasAuthority("ROLE_ADMIN")
                 .anyRequest().authenticated()
         )

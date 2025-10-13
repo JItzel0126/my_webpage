@@ -14,8 +14,11 @@ import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.domain.Sort;
+import org.springframework.security.core.GrantedAuthority;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
+
+import java.util.Collection;
 
 @RequiredArgsConstructor
 @Service
@@ -93,6 +96,9 @@ public class BoardService {
     public void delete(Long bno) {
         boardRepository.deleteById(bno);
     }
+
+    public void deleteByOwnerOrAdmin(long bno, String requesterEmail,
+                                     Collection<? extends GrantedAuthority> auths) {}
 
 //    업데이트
     @Transactional

@@ -18,6 +18,7 @@ public class BcommentDto {
     private String content;
 //    writer.getName()
     private String writer;
+    private String writerEmail;
 //    parent가 있으면 부모 기본키 가져오기, parent.bcno
     private Long parentBcno;
     private LocalDateTime createdAt;
@@ -25,4 +26,5 @@ public class BcommentDto {
 
 //    대댓글 카운트
     private int replyCount;
+    private boolean deletable;
 }

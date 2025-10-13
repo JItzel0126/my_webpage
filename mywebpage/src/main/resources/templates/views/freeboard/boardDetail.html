@@ -1,6 +1,7 @@
 <!DOCTYPE html>
 <html xmlns:th="http://www.thymeleaf.org"
       xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      xmlns:sec="https://www.thymeleaf.org/extras/spring-security"
       layout:decorate="~{common/layout}">
 
 <!-- 페이지 전용 head 추가 -->
@@ -124,8 +125,11 @@
 <!--                                    <button type="submit" class="text-red-500 text-xs">댓글</button>-->
 <!--                                </form>-->
                                 <form th:action="@{'/boards/'+${board.bno}+'/comments/'+${c.bcno}+'/delete'}"
-                                      method="post" class="inline">
-                                    <button type="submit" class="text-red-500 text-xs">삭제</button>
+                                      method="post" class="inline"
+                                      th:if="${c.deletable}">
+                                    <input type="hidden" th:name="${_csrf.parameterName}" th:value="${_csrf.token}">
+                                    <button type="submit" class="text-red-500 text-xs"
+                                            onclick="return confirm('정말 삭제할까요?');">삭제</button>
                                 </form>
                             </li>
                         </ul>

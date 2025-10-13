@@ -8,12 +8,18 @@ import com.mywebpage.mywebpage.novel.series.dto.SeriesDto;
 import com.mywebpage.mywebpage.novel.series.entity.Series;
 import com.mywebpage.mywebpage.novel.series.repository.SeriesRepository;
 import com.mywebpage.mywebpage.novel.series.service.SeriesService;
+import com.mywebpage.mywebpage.user.dto.UserResponseDto;
+import com.mywebpage.mywebpage.user.entity.User;
+import com.mywebpage.mywebpage.user.service.UserService;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.log4j.Log4j2;
 import org.springframework.data.crossstore.ChangeSetPersister;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.web.PageableDefault;
+import org.springframework.security.core.Authentication;
+import org.springframework.security.core.annotation.AuthenticationPrincipal;
+import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -27,6 +33,7 @@ import java.util.List;
 @RequiredArgsConstructor
 public class SeriesController {
     private final SeriesService seriesService;
+    private final UserService userService;
     private final SeriesRepository seriesRepository;
     private final EpisodeRepository episodeRepository;
     private final MapStruct mapStruct;
@@ -46,7 +53,15 @@ public class SeriesController {
 
 //    전체조회(list-main)
     @GetMapping("/")
-    public String findAllSeries(Model model) {
+    public String findAllSeries(Model model,
+                                @AuthenticationPrincipal UserDetails principal) {
+
+        // 로그인 사용자 정보
+        if (principal != null) {
+            String email = principal.getUsername();
+            model.addAttribute("me", userService.getDtoByEmail(email));
+        }
+
         List<SeriesDto> allSeries = seriesService.findRecentSeries(10);
         List<SeriesDto> fantasySeries = seriesService.findRecentSeriesByGenre("판타지", 10);
         List<SeriesDto> romanceSeries = seriesService.findRecentSeriesByGenre("로맨스", 10);
@@ -56,7 +71,7 @@ public class SeriesController {
         return "home";
     }
 
-//    서치바
+//    서치
     @GetMapping("/search")
     public String searchAll(@RequestParam(defaultValue = "") String keyword,
                             @PageableDefault(size = 3) Pageable pageable,
@@ -85,7 +100,14 @@ public class SeriesController {
     @GetMapping("/series/{id}")
     public String getSeries(@PathVariable Long id,
                             @RequestParam(defaultValue = "desc") String sort,
+                            @AuthenticationPrincipal UserDetails principal,
                             Model model) {
+
+        if (principal != null) {
+            String email = principal.getUsername();
+            model.addAttribute("me", userService.getDtoByEmail(email));
+        }
+
 //        시리즈 상세조회
         SeriesDto series = seriesService.findById(id, sort);
 

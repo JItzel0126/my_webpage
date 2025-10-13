@@ -3,9 +3,13 @@ package com.mywebpage.mywebpage.comment.novelcomment.controller;
 import com.mywebpage.mywebpage.comment.novelcomment.dto.NcommentDto;
 import com.mywebpage.mywebpage.comment.novelcomment.entity.Ncomment;
 import com.mywebpage.mywebpage.comment.novelcomment.service.NcommentService;
+import com.mywebpage.mywebpage.user.dto.SecurityUserDto;
+import com.mywebpage.mywebpage.user.dto.UserResponseDto;
+import com.mywebpage.mywebpage.user.service.UserService;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.log4j.Log4j2;
 import org.springframework.data.domain.Sort;
+import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
 
@@ -22,6 +26,7 @@ import java.util.List;
 public class NcommentController {
 
     private final NcommentService ncommentService;
+    private final UserService userService;
 
 //  @Controller + @ResponseBody + 객체 리턴
 //    → 뷰로 안 가고, 리턴한 객체를 JSON으로 변환해서 HTTP 응답
@@ -34,7 +39,14 @@ public class NcommentController {
 
     @PostMapping
     @ResponseBody
-    public String addComment(@RequestBody NcommentDto dto) {
+    public String addComment(@RequestBody NcommentDto dto,
+                             @AuthenticationPrincipal SecurityUserDto principal) {
+
+        // 로그인한 유저만 작성 가능
+        if (principal != null) { return "redirect:/login"; }
+
+        UserResponseDto responDto = userService.getDtoByEmail(principal.getUsername());
+        dto.setWriter(responDto.getName());
         ncommentService.save(dto);
         return "success";
     }

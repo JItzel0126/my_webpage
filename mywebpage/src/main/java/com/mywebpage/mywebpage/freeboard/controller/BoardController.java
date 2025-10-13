@@ -8,7 +8,9 @@ import com.mywebpage.mywebpage.freeboard.dto.BoardDto;
 import com.mywebpage.mywebpage.freeboard.entity.Board;
 import com.mywebpage.mywebpage.freeboard.service.BoardService;
 import com.mywebpage.mywebpage.user.dto.SecurityUserDto;
+import com.mywebpage.mywebpage.user.dto.UserResponseDto;
 import com.mywebpage.mywebpage.user.entity.User;
+import com.mywebpage.mywebpage.user.service.UserService;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.log4j.Log4j2;
 import org.springframework.data.domain.Page;
@@ -20,6 +22,7 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
+import java.util.Objects;
 
 @Controller
 @RequiredArgsConstructor
@@ -29,6 +32,7 @@ public class BoardController {
     private final BcommentService bcommentService;
     private final MapStruct mapStruct;
     private final ErrorMsg errorMsg;
+    private final UserService userService;
 
     @GetMapping("/boards")
     public String boards(@RequestParam(defaultValue = "") String keyword,
@@ -52,9 +56,23 @@ public class BoardController {
 // @PathVariable : @PathVariable은 경로 중에 포함된 변수를 가져옴 ( 예) /boards/10 → @PathVariable Long bno)
     public String boardDetail(@PathVariable Long bno, Model model,
                               @RequestParam(defaultValue = "0") int page,
-                              @RequestParam(defaultValue = "10") int size) {
+                              @RequestParam(defaultValue = "10") int size,
+                              @AuthenticationPrincipal SecurityUserDto loginUser) {
+
         BoardDto boardDto = boardService.getBoard(bno);  // 서비스에서 조회
         List<BcommentDto> comments = bcommentService.getBcommentsByBoard(bno, page, size);
+
+        boolean isLoggedIn = (loginUser != null);
+        String loginEmail = isLoggedIn ? loginUser.getUsername() : null;
+
+        boolean isAdmin = isLoggedIn && loginUser.getAuthorities().stream()
+                        .anyMatch(a-> a.getAuthority().equals("ROLE_ADMIN"));
+
+        comments.forEach(c -> {
+            boolean owner = isLoggedIn && Objects.equals(c.getWriterEmail(), loginEmail);
+            c.setDeletable(owner || isAdmin);
+        });
+
         model.addAttribute("board", boardDto);
         model.addAttribute("comments", comments);
         return "views/freeboard/boardDetail";
@@ -65,8 +83,15 @@ public class BoardController {
     @GetMapping("/boards/new")
     public String boardPostView(Model model, BoardDto boardDto,
                                 @AuthenticationPrincipal SecurityUserDto loginUser) {
-        boardDto.setWriter(loginUser.getName());
+
+        if(loginUser == null) { return "redirect:/login"; }
+
+        // email = principal.getUsername()
+        UserResponseDto me = userService.getDtoByEmail(loginUser.getUsername());
+        boardDto.setWriter(me.getName());
+
         model.addAttribute("board", boardDto);
+        model.addAttribute("writer", me);
         return "views/freeboard/boardNew";
     }
 
@@ -103,7 +128,7 @@ public class BoardController {
     }
 
 
-    // 댓글 등록
+    // 게시글 댓글 등록
     @PostMapping("/boards/{bno}/comments")
     public String addComment(@PathVariable Long bno,
                              @ModelAttribute BcommentDto commentDto,
@@ -112,11 +137,16 @@ public class BoardController {
         return "redirect:/boards/" + bno;
     }
 
-        // 댓글 삭제
+        // 게시글 댓글 삭제
     @PostMapping("/boards/{bno}/comments/{bcno}/delete")
     public String deleteComment(@PathVariable Long bno,
-                                @PathVariable Long bcno) {
-        bcommentService.deleteReplis(bcno);
+                                @PathVariable Long bcno,
+                                @AuthenticationPrincipal SecurityUserDto principal,
+                                Model model) {
+        if (principal == null) { return "redirect:/boards/" + bno; }
+        model.addAttribute("writer", principal.getName());
+        // 작성자 또는 관리자만 삭제 가능
+        bcommentService.deleteByOwnerOrAdmin(bcno, principal.getUsername(), principal.getAuthorities());
         return "redirect:/boards/" + bno;
     }
 

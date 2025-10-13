@@ -171,13 +171,19 @@ document.getElementById("commentBtn").addEventListener("click", async () => {
         return;
     }
 
+    // Spring Security CSRF 토큰 (메타 태그나 숨김 input에서 꺼내기)
+    const csrfHeader = document.querySelector('meta[name="_csrf_header"]')?.content || "X-CSRF-TOKEN";
+    const csrfToken  = document.querySelector('meta[name="_csrf"]')?.content
+        || document.querySelector('input[name="_csrf"]')?.value;
+
     const response = await fetch("/ncomments", {
         method: "POST",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({
+        headers: { "Content-Type": "application/json" ,
+        ...(csrfToken ? { [csrfHeader]: csrfToken } : {})
+        },
+        body : JSON.stringify({
             id: seriesId,
             content: content,
-            writer: "user1"
         })
     });
 

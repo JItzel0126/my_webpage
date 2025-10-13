@@ -8,15 +8,20 @@ import com.mywebpage.mywebpage.common.MapStruct;
 import com.mywebpage.mywebpage.freeboard.entity.Board;
 import com.mywebpage.mywebpage.freeboard.repository.BoardRepository;
 import com.mywebpage.mywebpage.freeboard.service.BoardService;
+import com.mywebpage.mywebpage.user.dto.SecurityUserDto;
 import com.mywebpage.mywebpage.user.entity.User;
 import com.mywebpage.mywebpage.user.repository.UserRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.domain.Sort;
+import org.springframework.security.core.GrantedAuthority;
+import org.springframework.security.core.annotation.AuthenticationPrincipal;
+import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.util.Collection;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -36,6 +41,7 @@ public class BcommentService {
                 .stream().map(comments->{
                     BcommentDto dto = mapStruct.toDto(comments);
                     dto.setReplyCount(bcommentRepository.countByParent_Bcno(comments.getBcno()));
+                    dto.setWriterEmail(comments.getWriter().getEmail());
                     return dto;
                 }).toList();
     }
@@ -81,6 +87,23 @@ public class BcommentService {
     @Transactional
     public void deleteReplis(Long parentBcno) {
         bcommentRepository.deleteById(parentBcno);
+    }
+
+//    글쓴이 or 관리자만 삭제
+    @Transactional
+    public void deleteByOwnerOrAdmin(Long bcno, String requesterEmail,
+                                     Collection<? extends GrantedAuthority> auths) {
+        Bcomment c = bcommentRepository.findById(bcno)
+                .orElseThrow(()->new RuntimeException(errorMsg.getMessage("errors.not.found")));
+
+        boolean isOwner = c.getWriter().getEmail().equalsIgnoreCase(requesterEmail);
+        boolean isAdmin = auths.stream().anyMatch(a -> a.getAuthority().equals("ROLE_ADMIN"));
+
+        if (!isOwner && !isAdmin) {
+            throw new RuntimeException(errorMsg.getMessage("errors.unauthorized"));
+        }
+
+        bcommentRepository.delete(c);
     }
 
 }
